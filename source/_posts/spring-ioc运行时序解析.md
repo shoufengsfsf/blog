@@ -68,7 +68,7 @@ import org.springframework.lang.Nullable;
  * {@link org.springframework.beans.factory.config.ConfigurableBeanFactory}
  * are available for specific purposes.
  *
- * <p>This interface is implemented by objects that hold a number of bean definitions,
+ * \\<p\>This interface is implemented by objects that hold a number of bean definitions,
  * each uniquely identified by a String name. Depending on the bean definition,
  * the factory will return either an independent instance of a contained object
  * (the Prototype design pattern), or a single shared instance (a superior
@@ -78,19 +78,19 @@ import org.springframework.lang.Nullable;
  * 2.0, further scopes are available depending on the concrete application
  * context (e.g. "request" and "session" scopes in a web environment).
  *
- * <p>The point of this approach is that the BeanFactory is a central registry
+ * \<p\>The point of this approach is that the BeanFactory is a central registry
  * of application components, and centralizes configuration of application
  * components (no more do individual objects need to read properties files,
  * for example). See chapters 4 and 11 of "Expert One-on-One J2EE Design and
  * Development" for a discussion of the benefits of this approach.
  *
- * <p>Note that it is generally better to rely on Dependency Injection
+ * \<p\>Note that it is generally better to rely on Dependency Injection
  * ("push" configuration) to configure application objects through setters
  * or constructors, rather than use any form of "pull" configuration like a
  * BeanFactory lookup. Spring's Dependency Injection functionality is
  * implemented using this BeanFactory interface and its subinterfaces.
  *
- * <p>Normally a BeanFactory will load bean definitions stored in a configuration
+ * \<p\>Normally a BeanFactory will load bean definitions stored in a configuration
  * source (such as an XML document), and use the {@code org.springframework.beans}
  * package to configure the beans. However, an implementation could simply return
  * Java objects it creates as necessary directly in Java code. There are no
@@ -98,42 +98,42 @@ import org.springframework.lang.Nullable;
  * properties file, etc. Implementations are encouraged to support references
  * amongst beans (Dependency Injection).
  *
- * <p>In contrast to the methods in {@link ListableBeanFactory}, all of the
+ * \<p\>In contrast to the methods in {@link ListableBeanFactory}, all of the
  * operations in this interface will also check parent factories if this is a
  * {@link HierarchicalBeanFactory}. If a bean is not found in this factory instance,
  * the immediate parent factory will be asked. Beans in this factory instance
  * are supposed to override beans of the same name in any parent factory.
  *
- * <p>Bean factory implementations should support the standard bean lifecycle interfaces
+ * \<p\>Bean factory implementations should support the standard bean lifecycle interfaces
  * as far as possible. The full set of initialization methods and their standard order is:
- * <ol>
- * <li>BeanNameAware's {@code setBeanName}
- * <li>BeanClassLoaderAware's {@code setBeanClassLoader}
- * <li>BeanFactoryAware's {@code setBeanFactory}
- * <li>EnvironmentAware's {@code setEnvironment}
- * <li>EmbeddedValueResolverAware's {@code setEmbeddedValueResolver}
- * <li>ResourceLoaderAware's {@code setResourceLoader}
+ * \<ol\>
+ * \<li\>BeanNameAware's {@code setBeanName}
+ * \<li\>BeanClassLoaderAware's {@code setBeanClassLoader}
+ * \<li\>BeanFactoryAware's {@code setBeanFactory}
+ * \<li\>EnvironmentAware's {@code setEnvironment}
+ * \<li\>EmbeddedValueResolverAware's {@code setEmbeddedValueResolver}
+ * \<li\>ResourceLoaderAware's {@code setResourceLoader}
  * (only applicable when running in an application context)
- * <li>ApplicationEventPublisherAware's {@code setApplicationEventPublisher}
+ * \<li\>ApplicationEventPublisherAware's {@code setApplicationEventPublisher}
  * (only applicable when running in an application context)
- * <li>MessageSourceAware's {@code setMessageSource}
+ * \<li\>MessageSourceAware's {@code setMessageSource}
  * (only applicable when running in an application context)
- * <li>ApplicationContextAware's {@code setApplicationContext}
+ * \<li\>ApplicationContextAware's {@code setApplicationContext}
  * (only applicable when running in an application context)
- * <li>ServletContextAware's {@code setServletContext}
+ * \<li\>ServletContextAware's {@code setServletContext}
  * (only applicable when running in a web application context)
- * <li>{@code postProcessBeforeInitialization} methods of BeanPostProcessors
- * <li>InitializingBean's {@code afterPropertiesSet}
- * <li>a custom init-method definition
- * <li>{@code postProcessAfterInitialization} methods of BeanPostProcessors
- * </ol>
+ * \<li\>{@code postProcessBeforeInitialization} methods of BeanPostProcessors
+ * \<li\>InitializingBean's {@code afterPropertiesSet}
+ * \<li\>a custom init-method definition
+ * \<li\>{@code postProcessAfterInitialization} methods of BeanPostProcessors
+ * \</ol\>
  *
- * <p>On shutdown of a bean factory, the following lifecycle methods apply:
- * <ol>
- * <li>{@code postProcessBeforeDestruction} methods of DestructionAwareBeanPostProcessors
- * <li>DisposableBean's {@code destroy}
- * <li>a custom destroy-method definition
- * </ol>
+ * \<p\>On shutdown of a bean factory, the following lifecycle methods apply:
+ * \<ol\>
+ * \<li\>{@code postProcessBeforeDestruction} methods of DestructionAwareBeanPostProcessors
+ * \<li\>DisposableBean's {@code destroy}
+ * \<li\>a custom destroy-method definition
+ * \</ol\>
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
@@ -160,7 +160,7 @@ public interface BeanFactory {
 
    /**
     * Used to dereference a {@link FactoryBean} instance and distinguish it from
-    * beans <i>created</i> by the FactoryBean. For example, if the bean named
+    * beans \<i\>created\</i\> by the FactoryBean. For example, if the bean named
     * {@code myJndiObject} is a FactoryBean, getting {@code &myJndiObject}
     * will return the factory, not the instance returned by the factory.
     */
@@ -171,10 +171,10 @@ public interface BeanFactory {
 
    /**
     * Return an instance, which may be shared or independent, of the specified bean.
-    * <p>This method allows a Spring BeanFactory to be used as a replacement for the
+    * \<p\>This method allows a Spring BeanFactory to be used as a replacement for the
     * Singleton or Prototype design pattern. Callers may retain references to
     * returned objects in the case of Singleton beans.
-    * <p>Translates aliases back to the corresponding canonical bean name.
+    * \<p\>Translates aliases back to the corresponding canonical bean name.
     * Will ask the parent factory if the bean cannot be found in this factory instance.
     * @param name the name of the bean to retrieve
     * @return an instance of the bean
@@ -187,11 +187,11 @@ public interface BeanFactory {
 
    /**
     * Return an instance, which may be shared or independent, of the specified bean.
-    * <p>Behaves the same as {@link #getBean(String)}, but provides a measure of type
+    * \<p\>Behaves the same as {@link #getBean(String)}, but provides a measure of type
     * safety by throwing a BeanNotOfRequiredTypeException if the bean is not of the
     * required type. This means that ClassCastException can't be thrown on casting
     * the result correctly, as can happen with {@link #getBean(String)}.
-    * <p>Translates aliases back to the corresponding canonical bean name.
+    * \<p\>Translates aliases back to the corresponding canonical bean name.
     * Will ask the parent factory if the bean cannot be found in this factory instance.
     * @param name the name of the bean to retrieve
     * @param requiredType type the bean must match. Can be an interface or superclass
@@ -204,11 +204,11 @@ public interface BeanFactory {
     * @throws BeansException if the bean could not be created
     */
    //根据bean的名字和Class类型来得到bean实例，增加了类型安全验证机制。
-   <T> T getBean(String name, @Nullable Class<T> requiredType) throws BeansException;
+   \<T\> T getBean(String name, @Nullable Class\<T\> requiredType) throws BeansException;
 
    /**
     * Return an instance, which may be shared or independent, of the specified bean.
-    * <p>Allows for specifying explicit constructor arguments / factory method arguments,
+    * \<p\>Allows for specifying explicit constructor arguments / factory method arguments,
     * overriding the specified default arguments (if any) in the bean definition.
     * @param name the name of the bean to retrieve
     * @param args arguments to use when creating a bean instance using explicit arguments
@@ -224,7 +224,7 @@ public interface BeanFactory {
 
    /**
     * Return the bean instance that uniquely matches the given object type, if any.
-    * <p>This method goes into {@link ListableBeanFactory} by-type lookup territory
+    * \<p\>This method goes into {@link ListableBeanFactory} by-type lookup territory
     * but may also be translated into a conventional by-name lookup based on the name
     * of the given type. For more extensive retrieval operations across sets of beans,
     * use {@link ListableBeanFactory} and/or {@link BeanFactoryUtils}.
@@ -237,13 +237,13 @@ public interface BeanFactory {
     * @since 3.0
     * @see ListableBeanFactory
     */
-   <T> T getBean(Class<T> requiredType) throws BeansException;
+   \<T\> T getBean(Class\<T\> requiredType) throws BeansException;
 
    /**
     * Return an instance, which may be shared or independent, of the specified bean.
-    * <p>Allows for specifying explicit constructor arguments / factory method arguments,
+    * \<p\>Allows for specifying explicit constructor arguments / factory method arguments,
     * overriding the specified default arguments (if any) in the bean definition.
-    * <p>This method goes into {@link ListableBeanFactory} by-type lookup territory
+    * \<p\>This method goes into {@link ListableBeanFactory} by-type lookup territory
     * but may also be translated into a conventional by-name lookup based on the name
     * of the given type. For more extensive retrieval operations across sets of beans,
     * use {@link ListableBeanFactory} and/or {@link BeanFactoryUtils}.
@@ -258,17 +258,17 @@ public interface BeanFactory {
     * @throws BeansException if the bean could not be created
     * @since 4.1
     */
-   <T> T getBean(Class<T> requiredType, Object... args) throws BeansException;
+   \<T\> T getBean(Class\<T\> requiredType, Object... args) throws BeansException;
 
 
    /**
     * Does this bean factory contain a bean definition or externally registered singleton
     * instance with the given name?
-    * <p>If the given name is an alias, it will be translated back to the corresponding
+    * \<p\>If the given name is an alias, it will be translated back to the corresponding
     * canonical bean name.
-    * <p>If this factory is hierarchical, will ask any parent factory if the bean cannot
+    * \<p\>If this factory is hierarchical, will ask any parent factory if the bean cannot
     * be found in this factory instance.
-    * <p>If a bean definition or singleton instance matching the given name is found,
+    * \<p\>If a bean definition or singleton instance matching the given name is found,
     * this method will return {@code true} whether the named bean definition is concrete
     * or abstract, lazy or eager, in scope or not. Therefore, note that a {@code true}
     * return value from this method does not necessarily indicate that {@link #getBean}
@@ -282,11 +282,11 @@ public interface BeanFactory {
    /**
     * Is this bean a shared singleton? That is, will {@link #getBean} always
     * return the same instance?
-    * <p>Note: This method returning {@code false} does not clearly indicate
+    * \<p\>Note: This method returning {@code false} does not clearly indicate
     * independent instances. It indicates non-singleton instances, which may correspond
     * to a scoped bean as well. Use the {@link #isPrototype} operation to explicitly
     * check for independent instances.
-    * <p>Translates aliases back to the corresponding canonical bean name.
+    * \<p\>Translates aliases back to the corresponding canonical bean name.
     * Will ask the parent factory if the bean cannot be found in this factory instance.
     * @param name the name of the bean to query
     * @return whether this bean corresponds to a singleton instance
@@ -300,11 +300,11 @@ public interface BeanFactory {
    /**
     * Is this bean a prototype? That is, will {@link #getBean} always return
     * independent instances?
-    * <p>Note: This method returning {@code false} does not clearly indicate
+    * \<p\>Note: This method returning {@code false} does not clearly indicate
     * a singleton object. It indicates non-independent instances, which may correspond
     * to a scoped bean as well. Use the {@link #isSingleton} operation to explicitly
     * check for a shared singleton instance.
-    * <p>Translates aliases back to the corresponding canonical bean name.
+    * \<p\>Translates aliases back to the corresponding canonical bean name.
     * Will ask the parent factory if the bean cannot be found in this factory instance.
     * @param name the name of the bean to query
     * @return whether this bean will always deliver independent instances
@@ -319,7 +319,7 @@ public interface BeanFactory {
     * Check whether the bean with the given name matches the specified type.
     * More specifically, check whether a {@link #getBean} call for the given name
     * would return an object that is assignable to the specified target type.
-    * <p>Translates aliases back to the corresponding canonical bean name.
+    * \<p\>Translates aliases back to the corresponding canonical bean name.
     * Will ask the parent factory if the bean cannot be found in this factory instance.
     * @param name the name of the bean to query
     * @param typeToMatch the type to match against (as a {@code ResolvableType})
@@ -336,7 +336,7 @@ public interface BeanFactory {
     * Check whether the bean with the given name matches the specified type.
     * More specifically, check whether a {@link #getBean} call for the given name
     * would return an object that is assignable to the specified target type.
-    * <p>Translates aliases back to the corresponding canonical bean name.
+    * \<p\>Translates aliases back to the corresponding canonical bean name.
     * Will ask the parent factory if the bean cannot be found in this factory instance.
     * @param name the name of the bean to query
     * @param typeToMatch the type to match against (as a {@code Class})
@@ -347,14 +347,14 @@ public interface BeanFactory {
     * @see #getBean
     * @see #getType
     */
-   boolean isTypeMatch(String name, @Nullable Class<?> typeToMatch) throws NoSuchBeanDefinitionException;
+   boolean isTypeMatch(String name, @Nullable Class\<?\> typeToMatch) throws NoSuchBeanDefinitionException;
 
    /**
     * Determine the type of the bean with the given name. More specifically,
     * determine the type of object that {@link #getBean} would return for the given name.
-    * <p>For a {@link FactoryBean}, return the type of object that the FactoryBean creates,
+    * \<p\>For a {@link FactoryBean}, return the type of object that the FactoryBean creates,
     * as exposed by {@link FactoryBean#getObjectType()}.
-    * <p>Translates aliases back to the corresponding canonical bean name.
+    * \<p\>Translates aliases back to the corresponding canonical bean name.
     * Will ask the parent factory if the bean cannot be found in this factory instance.
     * @param name the name of the bean to query
     * @return the type of the bean, or {@code null} if not determinable
@@ -365,15 +365,15 @@ public interface BeanFactory {
     */
    //得到bean实例的Class类型
    @Nullable
-   Class<?> getType(String name) throws NoSuchBeanDefinitionException;
+   Class\<?\> getType(String name) throws NoSuchBeanDefinitionException;
 
    /**
     * Return the aliases for the given bean name, if any.
     * All of those aliases point to the same bean when used in a {@link #getBean} call.
-    * <p>If the given name is an alias, the corresponding original bean name
+    * \<p\>If the given name is an alias, the corresponding original bean name
     * and other aliases (if any) will be returned, with the original bean name
     * being the first element in the array.
-    * <p>Will ask the parent factory if the bean cannot be found in this factory instance.
+    * \<p\>Will ask the parent factory if the bean cannot be found in this factory instance.
     * @param name the bean name to check for aliases
     * @return the aliases, or an empty array if none
     * @see #getBean
@@ -427,23 +427,23 @@ import org.springframework.lang.Nullable;
  * This is read-only while the application is running, but may be
  * reloaded if the implementation supports this.
  *
- * <p>An ApplicationContext provides:
- * <ul>
- * <li>Bean factory methods for accessing application components.
+ * \<p\>An ApplicationContext provides:
+ * \<ul\>
+ * \<li\>Bean factory methods for accessing application components.
  * Inherited from {@link org.springframework.beans.factory.ListableBeanFactory}.
- * <li>The ability to load file resources in a generic fashion.
+ * \<li\>The ability to load file resources in a generic fashion.
  * Inherited from the {@link org.springframework.core.io.ResourceLoader} interface.
- * <li>The ability to publish events to registered listeners.
+ * \<li\>The ability to publish events to registered listeners.
  * Inherited from the {@link ApplicationEventPublisher} interface.
- * <li>The ability to resolve messages, supporting internationalization.
+ * \<li\>The ability to resolve messages, supporting internationalization.
  * Inherited from the {@link MessageSource} interface.
- * <li>Inheritance from a parent context. Definitions in a descendant context
+ * \<li\>Inheritance from a parent context. Definitions in a descendant context
  * will always take priority. This means, for example, that a single parent
  * context can be used by an entire web application, while each servlet has
  * its own child context that is independent of that of any other servlet.
- * </ul>
+ * \</ul\>
  *
- * <p>In addition to standard {@link org.springframework.beans.factory.BeanFactory}
+ * \<p\>In addition to standard {@link org.springframework.beans.factory.BeanFactory}
  * lifecycle capabilities, ApplicationContext implementations detect and invoke
  * {@link ApplicationContextAware} beans as well as {@link ResourceLoaderAware},
  * {@link ApplicationEventPublisherAware} and {@link MessageSourceAware} beans.
@@ -497,15 +497,15 @@ public interface ApplicationContext extends EnvironmentCapable, ListableBeanFact
 
    /**
     * Expose AutowireCapableBeanFactory functionality for this context.
-    * <p>This is not typically used by application code, except for the purpose of
+    * \<p\>This is not typically used by application code, except for the purpose of
     * initializing bean instances that live outside of the application context,
     * applying the Spring bean lifecycle (fully or partly) to them.
-    * <p>Alternatively, the internal BeanFactory exposed by the
+    * \<p\>Alternatively, the internal BeanFactory exposed by the
     * {@link ConfigurableApplicationContext} interface offers access to the
     * {@link AutowireCapableBeanFactory} interface too. The present method mainly
     * serves as a convenient, specific facility on the ApplicationContext interface.
-    * <p><b>NOTE: As of 4.2, this method will consistently throw IllegalStateException
-    * after the application context has been closed.</b> In current Spring Framework
+    * \<p\>\<b\>NOTE: As of 4.2, this method will consistently throw IllegalStateException
+    * after the application context has been closed.\</b\> In current Spring Framework
     * versions, only refreshable application contexts behave that way; as of 4.2,
     * all application context implementations will be required to comply.
     * @return the AutowireCapableBeanFactory for this context
@@ -628,7 +628,7 @@ public void setConfigLocations(@Nullable String... locations) {
   if (locations != null) {
     Assert.noNullElements(locations, "Config locations must not be null"); 
     this.configLocations = new String[locations.length];
-    for (int i = 0; i < locations.length; i++) {
+    for (int i = 0; i \< locations.length; i++) {
       // resolvePath 为同一个类中将字符串解析为路径的方法
       this.configLocations[i] = resolvePath(locations[i]).trim(); 
     }
@@ -840,7 +840,7 @@ protected void loadBeanDefinitions(DefaultListableBeanFactory beanFactory) throw
 /**
  * Initialize the bean definition reader used for loading the bean
  * definitions of this context. Default implementation is empty.
- * <p>Can be overridden in subclasses, e.g. for turning off XML validation
+ * \<p\>Can be overridden in subclasses, e.g. for turning off XML validation
  * or using a different XmlBeanDefinitionParser implementation.
  * @param reader the bean definition reader used by this context
  * @see org.springframework.beans.factory.xml.XmlBeanDefinitionReader#setDocumentReaderClass
@@ -851,7 +851,7 @@ protected void initBeanDefinitionReader(XmlBeanDefinitionReader reader) {
 
 /**
  * Load the bean definitions with the given XmlBeanDefinitionReader.
- * <p>The lifecycle of the bean factory is handled by the {@link #refreshBeanFactory}
+ * \<p\>The lifecycle of the bean factory is handled by the {@link #refreshBeanFactory}
  * method; hence this method is just supposed to load and/or register bean definitions.
  * @param reader the XmlBeanDefinitionReader to use
  * @throws BeansException in case of bean registration errors
@@ -882,7 +882,7 @@ protected void loadBeanDefinitions(XmlBeanDefinitionReader reader) throws BeansE
 /**
  * Return an array of Resource objects, referring to the XML bean definition
  * files that this context should be built with.
- * <p>The default implementation returns {@code null}. Subclasses can override
+ * \<p\>The default implementation returns {@code null}. Subclasses can override
  * this to provide pre-built Resource objects rather than location Strings.
  * @return an array of Resource objects, or {@code null} if none
  * @see #getConfigLocations()
@@ -914,7 +914,7 @@ public int loadBeanDefinitions(Resource... resources) throws BeanDefinitionStore
    }
    return counter;
 }
-//重载方法，调用下面的loadBeanDefinitions(String, Set<Resource>);方法
+//重载方法，调用下面的loadBeanDefinitions(String, Set\<Resource\>);方法
 @Override
 public int loadBeanDefinitions(String location) throws BeanDefinitionStoreException {
    return loadBeanDefinitions(location, null);
@@ -922,7 +922,7 @@ public int loadBeanDefinitions(String location) throws BeanDefinitionStoreExcept
 
 /**
  * Load bean definitions from the specified resource location.
- * <p>The location can also be a location pattern, provided that the
+ * \<p\>The location can also be a location pattern, provided that the
  * ResourceLoader of this bean definition reader is a ResourcePatternResolver.
  * @param location the resource location, to be loaded with the ResourceLoader
  * (or ResourcePatternResolver) of this bean definition reader
@@ -935,7 +935,7 @@ public int loadBeanDefinitions(String location) throws BeanDefinitionStoreExcept
  * @see #loadBeanDefinitions(org.springframework.core.io.Resource)
  * @see #loadBeanDefinitions(org.springframework.core.io.Resource[])
  */
-public int loadBeanDefinitions(String location, @Nullable Set<Resource> actualResources) throws BeanDefinitionStoreException {
+public int loadBeanDefinitions(String location, @Nullable Set\<Resource\> actualResources) throws BeanDefinitionStoreException {
    //获取在IoC容器初始化过程中设置的资源加载器
    ResourceLoader resourceLoader = getResourceLoader();
    if (resourceLoader == null) {
@@ -1035,7 +1035,7 @@ public Resource getResource(String location) {
          return (ResourceUtils.isFileURL(url) ? new FileUrlResource(url) : new UrlResource(url));
       }
       catch (MalformedURLException ex) {
-         // No URL -> resolve as resource path.
+         // No URL -\> resolve as resource path.
          //如果既不是classpath标识，又不是URL标识的Resource定位，则调用
          //容器本身的getResourceByPath方法获取Resource
          return getResourceByPath(location);
@@ -1057,7 +1057,7 @@ protected Resource getResourceByPath(String path) {
 ```java
 /**
  * Resolve resource paths as file system paths.
- * <p>Note: Even if a given path starts with a slash, it will get
+ * \<p\>Note: Even if a given path starts with a slash, it will get
  * interpreted as relative to the current VM working directory.
  * This is consistent with the semantics in a Servlet container.
  * @param path path to the resource
@@ -1108,9 +1108,9 @@ public int loadBeanDefinitions(EncodedResource encodedResource) throws BeanDefin
       logger.info("Loading XML bean definitions from " + encodedResource.getResource());
    }
 
-   Set<EncodedResource> currentResources = this.resourcesCurrentlyBeingLoaded.get();
+   Set\<EncodedResource\> currentResources = this.resourcesCurrentlyBeingLoaded.get();
    if (currentResources == null) {
-      currentResources = new HashSet<>(4);
+      currentResources = new HashSet\<\>(4);
       this.resourcesCurrentlyBeingLoaded.set(currentResources);
    }
    if (!currentResources.add(encodedResource)) {
@@ -1291,7 +1291,7 @@ XmlBeanDefinitionReader 类中的 doLoadBeanDefinition()方法是从特定 XML �
 /**
  * Register the bean definitions contained in the given DOM document.
  * Called by {@code loadBeanDefinitions}.
- * <p>Creates a new instance of the parser class and invokes
+ * \<p\>Creates a new instance of the parser class and invokes
  * {@code registerBeanDefinitions} on it.
  * @param doc the DOM document
  * @param resource the resource descriptor (for context information)
@@ -1327,8 +1327,8 @@ BeanDefinitionDocumentReader 接 口 通 过 registerBeanDefinitions() 方 法 �
 /**
  * This implementation parses bean definitions according to the "spring-beans" XSD
  * (or DTD, historically).
- * <p>Opens a DOM Document; then initializes the default settings
- * specified at the {@code <beans/>} level; then parses the contained bean definitions.
+ * \<p\>Opens a DOM Document; then initializes the default settings
+ * specified at the {@code \<beans/\>} level; then parses the contained bean definitions.
  */
 //根据Spring DTD对Bean的定义规则解析Bean定义Document对象
 @Override
@@ -1360,11 +1360,11 @@ protected Object extractSource(Element ele) {
 
 
 /**
- * Register each bean definition within the given root {@code <beans/>} element.
+ * Register each bean definition within the given root {@code \<beans/\>} element.
  */
 protected void doRegisterBeanDefinitions(Element root) {
-   // Any nested <beans> elements will cause recursion in this method. In
-   // order to propagate and preserve <beans> default-* attributes correctly,
+   // Any nested \<beans\> elements will cause recursion in this method. In
+   // order to propagate and preserve \<beans\> default-* attributes correctly,
    // keep track of the current (parent) delegate, which may be null. Create
    // the new (child) delegate with a reference to the parent for fallback purposes,
    // then ultimately reset this.delegate back to its original (parent) reference.
@@ -1421,7 +1421,7 @@ protected void parseBeanDefinitions(Element root, BeanDefinitionParserDelegate d
    if (delegate.isDefaultNamespace(root)) {
       //获取Bean定义的Document对象根元素的所有子节点
       NodeList nl = root.getChildNodes();
-      for (int i = 0; i < nl.getLength(); i++) {
+      for (int i = 0; i \< nl.getLength(); i++) {
          Node node = nl.item(i);
          //获得Document节点是XML元素节点
          if (node instanceof Element) {
@@ -1448,15 +1448,15 @@ protected void parseBeanDefinitions(Element root, BeanDefinitionParserDelegate d
 
 //使用Spring的Bean规则解析Document元素节点
 private void parseDefaultElement(Element ele, BeanDefinitionParserDelegate delegate) {
-   //如果元素节点是<Import>导入元素，进行导入解析
+   //如果元素节点是\<Import\>导入元素，进行导入解析
    if (delegate.nodeNameEquals(ele, IMPORT_ELEMENT)) {
       importBeanDefinitionResource(ele);
    }
-   //如果元素节点是<Alias>别名元素，进行别名解析
+   //如果元素节点是\<Alias\>别名元素，进行别名解析
    else if (delegate.nodeNameEquals(ele, ALIAS_ELEMENT)) {
       processAliasRegistration(ele);
    }
-   //元素节点既不是导入元素，也不是别名元素，即普通的<Bean>元素，
+   //元素节点既不是导入元素，也不是别名元素，即普通的\<Bean\>元素，
    //按照Spring的Bean规则解析元素
    else if (delegate.nodeNameEquals(ele, BEAN_ELEMENT)) {
       processBeanDefinition(ele, delegate);
@@ -1471,7 +1471,7 @@ private void parseDefaultElement(Element ele, BeanDefinitionParserDelegate deleg
  * Parse an "import" element and load the bean definitions
  * from the given resource into the bean factory.
  */
-//解析<Import>导入元素，从给定的导入路径加载Bean定义资源到Spring IoC容器中
+//解析\<Import\>导入元素，从给定的导入路径加载Bean定义资源到Spring IoC容器中
 protected void importBeanDefinitionResource(Element ele) {
    //获取给定的导入元素的location属性
    String location = ele.getAttribute(RESOURCE_ATTRIBUTE);
@@ -1485,7 +1485,7 @@ protected void importBeanDefinitionResource(Element ele) {
    //使用系统变量值解析location属性值
    location = getReaderContext().getEnvironment().resolveRequiredPlaceholders(location);
 
-   Set<Resource> actualResources = new LinkedHashSet<>(4);
+   Set\<Resource\> actualResources = new LinkedHashSet\<\>(4);
 
    // Discover whether the location is an absolute or relative URI
    //标识给定的导入元素的location是否是绝对路径
@@ -1515,7 +1515,7 @@ protected void importBeanDefinitionResource(Element ele) {
       }
    }
    else {
-      // No URL -> considering resource location as relative to the current file.
+      // No URL -\> considering resource location as relative to the current file.
       //给定的导入元素的location是相对路径
       try {
          int importCount;
@@ -1548,26 +1548,26 @@ protected void importBeanDefinitionResource(Element ele) {
       }
    }
    Resource[] actResArray = actualResources.toArray(new Resource[actualResources.size()]);
-   //在解析完<Import>元素之后，发送容器导入其他资源处理完成事件
+   //在解析完\<Import\>元素之后，发送容器导入其他资源处理完成事件
    getReaderContext().fireImportProcessed(location, actResArray, extractSource(ele));
 }
 
 /**
  * Process the given alias element, registering the alias with the registry.
  */
-//解析<Alias>别名元素，为Bean向Spring IoC容器注册别名
+//解析\<Alias\>别名元素，为Bean向Spring IoC容器注册别名
 protected void processAliasRegistration(Element ele) {
-   //获取<Alias>别名元素中name的属性值
+   //获取\<Alias\>别名元素中name的属性值
    String name = ele.getAttribute(NAME_ATTRIBUTE);
-   //获取<Alias>别名元素中alias的属性值
+   //获取\<Alias\>别名元素中alias的属性值
    String alias = ele.getAttribute(ALIAS_ATTRIBUTE);
    boolean valid = true;
-   //<alias>别名元素的name属性值为空
+   //\<alias\>别名元素的name属性值为空
    if (!StringUtils.hasText(name)) {
       getReaderContext().error("Name must not be empty", ele);
       valid = false;
    }
-   //<alias>别名元素的alias属性值为空
+   //\<alias\>别名元素的alias属性值为空
    if (!StringUtils.hasText(alias)) {
       getReaderContext().error("Alias must not be empty", ele);
       valid = false;
@@ -1581,7 +1581,7 @@ protected void processAliasRegistration(Element ele) {
          getReaderContext().error("Failed to register alias '" + alias +
                "' for bean with name '" + name + "'", ele, ex);
       }
-      //在解析完<Alias>元素之后，发送容器别名处理完成事件
+      //在解析完\<Alias\>元素之后，发送容器别名处理完成事件
       getReaderContext().fireAliasRegistered(name, alias, extractSource(ele));
    }
 }
@@ -1594,7 +1594,7 @@ protected void processAliasRegistration(Element ele) {
 protected void processBeanDefinition(Element ele, BeanDefinitionParserDelegate delegate) {
    BeanDefinitionHolder bdHolder = delegate.parseBeanDefinitionElement(ele);
    // BeanDefinitionHolder是对BeanDefinition的封装，即Bean定义的封装类
-   //对Document对象中<Bean>元素的解析由BeanDefinitionParserDelegate实现
+   //对Document对象中\<Bean\>元素的解析由BeanDefinitionParserDelegate实现
    // BeanDefinitionHolder bdHolder = delegate.parseBeanDefinitionElement(ele);
    if (bdHolder != null) {
       bdHolder = delegate.decorateBeanDefinitionIfRequired(ele, bdHolder);
@@ -1618,7 +1618,7 @@ protected void processBeanDefinition(Element ele, BeanDefinitionParserDelegate d
  * Allow the XML to be extensible by processing any custom element types first,
  * before we start to process the bean definitions. This method is a natural
  * extension point for any other custom pre-processing of the XML.
- * <p>The default implementation is empty. Subclasses can override this method to
+ * \<p\>The default implementation is empty. Subclasses can override this method to
  * convert custom elements into standard Spring bean definitions, for example.
  * Implementors have access to the parser's bean definition reader and the
  * underlying XML resource, through the corresponding accessors.
@@ -1631,7 +1631,7 @@ protected void preProcessXml(Element root) {
  * Allow the XML to be extensible by processing any custom element types last,
  * after we finished processing the bean definitions. This method is a natural
  * extension point for any other custom post-processing of the XML.
- * <p>The default implementation is empty. Subclasses can override this method to
+ * \<p\>The default implementation is empty. Subclasses can override this method to
  * convert custom elements into standard Spring bean definitions, for example.
  * Implementors have access to the parser's bean definition reader and the
  * underlying XML resource, through the corresponding accessors.
@@ -1641,50 +1641,50 @@ protected void postProcessXml(Element root) {
 }
 ```
 
-通过上述 Spring IOC 容器对载入的 Bean 定义 Document 解析可以看出，我们使用 Spring 时，在 Spring 配置文件中可以使用<import>元素来导入 IOC 容器所需要的其他资源，Spring IOC 容器在解 析时会首先将指定导入的资源加载进容器中。使用<ailas>别名时，Spring IOC 容器首先将别名元素所 定义的别名注册到容器中。
+通过上述 Spring IOC 容器对载入的 Bean 定义 Document 解析可以看出，我们使用 Spring 时，在 Spring 配置文件中可以使用\<import\>元素来导入 IOC 容器所需要的其他资源，Spring IOC 容器在解 析时会首先将指定导入的资源加载进容器中。使用\<ailas\>别名时，Spring IOC 容器首先将别名元素所 定义的别名注册到容器中。
 
-对于既不是<import>元素，又不是<alias>元素的元素，即 Spring 配置文件中普通的<bean>元素的 解析由 BeanDefinitionParserDelegate 类的 parseBeanDefinitionElement()方法来实现。这个解析的 过程非常复杂，我们在 mini 版本的时候，就用 properties 文件代替了。
+对于既不是\<import\>元素，又不是\<alias\>元素的元素，即 Spring 配置文件中普通的\<bean\>元素的 解析由 BeanDefinitionParserDelegate 类的 parseBeanDefinitionElement()方法来实现。这个解析的 过程非常复杂，我们在 mini 版本的时候，就用 properties 文件代替了。
 
-### **12、载入<bean>元素**
+### **12、载入\<bean\>元素**
 
-Bean 配置信息中的<import>和<alias>元素解析在 DefaultBeanDefinitionDocumentReader 中已 经完成，对 Bean 配置信息中使用最多的<bean>元素交由 BeanDefinitionParserDelegate 来解析， 其解析实现的源码如下:
+Bean 配置信息中的\<import\>和\<alias\>元素解析在 DefaultBeanDefinitionDocumentReader 中已 经完成，对 Bean 配置信息中使用最多的\<bean\>元素交由 BeanDefinitionParserDelegate 来解析， 其解析实现的源码如下:
 
 ```java
 /**
- * Parses the supplied {@code <bean>} element. May return {@code null}
+ * Parses the supplied {@code \<bean\>} element. May return {@code null}
  * if there were errors during parse. Errors are reported to the
  * {@link org.springframework.beans.factory.parsing.ProblemReporter}.
  */
-//解析<Bean>元素的入口
+//解析\<Bean\>元素的入口
 @Nullable
 public BeanDefinitionHolder parseBeanDefinitionElement(Element ele) {
    return parseBeanDefinitionElement(ele, null);
 }
 
 /**
- * Parses the supplied {@code <bean>} element. May return {@code null}
+ * Parses the supplied {@code \<bean\>} element. May return {@code null}
  * if there were errors during parse. Errors are reported to the
  * {@link org.springframework.beans.factory.parsing.ProblemReporter}.
  */
-//解析Bean定义资源文件中的<Bean>元素，这个方法中主要处理<Bean>元素的id，name和别名属性
+//解析Bean定义资源文件中的\<Bean\>元素，这个方法中主要处理\<Bean\>元素的id，name和别名属性
 @Nullable
 public BeanDefinitionHolder parseBeanDefinitionElement(Element ele, @Nullable BeanDefinition containingBean) {
-   //获取<Bean>元素中的id属性值
+   //获取\<Bean\>元素中的id属性值
    String id = ele.getAttribute(ID_ATTRIBUTE);
-   //获取<Bean>元素中的name属性值
+   //获取\<Bean\>元素中的name属性值
    String nameAttr = ele.getAttribute(NAME_ATTRIBUTE);
 
-   //获取<Bean>元素中的alias属性值
-   List<String> aliases = new ArrayList<>();
+   //获取\<Bean\>元素中的alias属性值
+   List\<String\> aliases = new ArrayList\<\>();
 
-   //将<Bean>元素中的所有name属性值存放到别名中
+   //将\<Bean\>元素中的所有name属性值存放到别名中
    if (StringUtils.hasLength(nameAttr)) {
       String[] nameArr = StringUtils.tokenizeToStringArray(nameAttr, MULTI_VALUE_ATTRIBUTE_DELIMITERS);
       aliases.addAll(Arrays.asList(nameArr));
    }
 
    String beanName = id;
-   //如果<Bean>元素中没有配置id属性时，将别名中的第一个值赋值给beanName
+   //如果\<Bean\>元素中没有配置id属性时，将别名中的第一个值赋值给beanName
    if (!StringUtils.hasText(beanName) && !aliases.isEmpty()) {
       beanName = aliases.remove(0);
       if (logger.isDebugEnabled()) {
@@ -1693,27 +1693,27 @@ public BeanDefinitionHolder parseBeanDefinitionElement(Element ele, @Nullable Be
       }
    }
 
-   //检查<Bean>元素所配置的id或者name的唯一性，containingBean标识<Bean>
-   //元素中是否包含子<Bean>元素
+   //检查\<Bean\>元素所配置的id或者name的唯一性，containingBean标识\<Bean\>
+   //元素中是否包含子\<Bean\>元素
    if (containingBean == null) {
-      //检查<Bean>元素所配置的id、name或者别名是否重复
+      //检查\<Bean\>元素所配置的id、name或者别名是否重复
       checkNameUniqueness(beanName, aliases, ele);
    }
 
-   //详细对<Bean>元素中配置的Bean定义进行解析的地方
+   //详细对\<Bean\>元素中配置的Bean定义进行解析的地方
    AbstractBeanDefinition beanDefinition = parseBeanDefinitionElement(ele, beanName, containingBean);
    if (beanDefinition != null) {
       if (!StringUtils.hasText(beanName)) {
          try {
             if (containingBean != null) {
-               //如果<Bean>元素中没有配置id、别名或者name，且没有包含子元素
-               //<Bean>元素，为解析的Bean生成一个唯一beanName并注册
+               //如果\<Bean\>元素中没有配置id、别名或者name，且没有包含子元素
+               //\<Bean\>元素，为解析的Bean生成一个唯一beanName并注册
                beanName = BeanDefinitionReaderUtils.generateBeanName(
                      beanDefinition, this.readerContext.getRegistry(), true);
             }
             else {
-               //如果<Bean>元素中没有配置id、别名或者name，且包含了子元素
-               //<Bean>元素，为解析的Bean使用别名向IOC容器注册
+               //如果\<Bean\>元素中没有配置id、别名或者name，且包含了子元素
+               //\<Bean\>元素，为解析的Bean使用别名向IOC容器注册
                beanName = this.readerContext.generateBeanName(beanDefinition);
                // Register an alias for the plain bean class name, if still possible,
                // if the generator returned the class name plus a suffix.
@@ -1722,7 +1722,7 @@ public BeanDefinitionHolder parseBeanDefinitionElement(Element ele, @Nullable Be
                //Spring1.2/2.0，给别名添加类名后缀
                String beanClassName = beanDefinition.getBeanClassName();
                if (beanClassName != null &&
-                     beanName.startsWith(beanClassName) && beanName.length() > beanClassName.length() &&
+                     beanName.startsWith(beanClassName) && beanName.length() \> beanClassName.length() &&
                      !this.readerContext.getRegistry().isBeanNameInUse(beanClassName)) {
                   aliases.add(beanClassName);
                }
@@ -1748,7 +1748,7 @@ public BeanDefinitionHolder parseBeanDefinitionElement(Element ele, @Nullable Be
  * Validate that the specified bean name and aliases have not been used already
  * within the current level of beans element nesting.
  */
-protected void checkNameUniqueness(String beanName, List<String> aliases, Element beanElement) {
+protected void checkNameUniqueness(String beanName, List\<String\> aliases, Element beanElement) {
    String foundName = null;
 
    if (StringUtils.hasText(beanName) && this.usedNames.contains(beanName)) {
@@ -1758,7 +1758,7 @@ protected void checkNameUniqueness(String beanName, List<String> aliases, Elemen
       foundName = CollectionUtils.findFirstMatch(this.usedNames, aliases);
    }
    if (foundName != null) {
-      error("Bean name '" + foundName + "' is already used in this <beans> element", beanElement);
+      error("Bean name '" + foundName + "' is already used in this \<beans\> element", beanElement);
    }
 
    this.usedNames.add(beanName);
@@ -1769,20 +1769,20 @@ protected void checkNameUniqueness(String beanName, List<String> aliases, Elemen
  * Parse the bean definition itself, without regard to name or aliases. May return
  * {@code null} if problems occurred during the parsing of the bean definition.
  */
-//详细对<Bean>元素中配置的Bean定义其他属性进行解析
+//详细对\<Bean\>元素中配置的Bean定义其他属性进行解析
 //由于上面的方法中已经对Bean的id、name和别名等属性进行了处理
 //该方法中主要处理除这三个以外的其他属性数据
 @Nullable
 public AbstractBeanDefinition parseBeanDefinitionElement(
       Element ele, String beanName, @Nullable BeanDefinition containingBean) {
-   //记录解析的<Bean>
+   //记录解析的\<Bean\>
    this.parseState.push(new BeanEntry(beanName));
 
-   //这里只读取<Bean>元素中配置的class名字，然后载入到BeanDefinition中去
+   //这里只读取\<Bean\>元素中配置的class名字，然后载入到BeanDefinition中去
    //只是记录配置的class名字，不做实例化，对象的实例化在依赖注入时完成
    String className = null;
 
-   //如果<Bean>元素中配置了parent属性，则获取parent属性的值
+   //如果\<Bean\>元素中配置了parent属性，则获取parent属性的值
    if (ele.hasAttribute(CLASS_ATTRIBUTE)) {
       className = ele.getAttribute(CLASS_ATTRIBUTE).trim();
    }
@@ -1792,27 +1792,27 @@ public AbstractBeanDefinition parseBeanDefinitionElement(
    }
 
    try {
-      //根据<Bean>元素配置的class名称和parent属性值创建BeanDefinition
+      //根据\<Bean\>元素配置的class名称和parent属性值创建BeanDefinition
       //为载入Bean定义信息做准备
       AbstractBeanDefinition bd = createBeanDefinition(className, parent);
 
-      //对当前的<Bean>元素中配置的一些属性进行解析和设置，如配置的单态(singleton)属性等
+      //对当前的\<Bean\>元素中配置的一些属性进行解析和设置，如配置的单态(singleton)属性等
       parseBeanDefinitionAttributes(ele, beanName, containingBean, bd);
-      //为<Bean>元素解析的Bean设置description信息
+      //为\<Bean\>元素解析的Bean设置description信息
       bd.setDescription(DomUtils.getChildElementValueByTagName(ele, DESCRIPTION_ELEMENT));
 
-      //对<Bean>元素的meta(元信息)属性解析
+      //对\<Bean\>元素的meta(元信息)属性解析
       parseMetaElements(ele, bd);
-      //对<Bean>元素的lookup-method属性解析
+      //对\<Bean\>元素的lookup-method属性解析
       parseLookupOverrideSubElements(ele, bd.getMethodOverrides());
-      //对<Bean>元素的replaced-method属性解析
+      //对\<Bean\>元素的replaced-method属性解析
       parseReplacedMethodSubElements(ele, bd.getMethodOverrides());
 
-      //解析<Bean>元素的构造方法设置
+      //解析\<Bean\>元素的构造方法设置
       parseConstructorArgElements(ele, bd);
-      //解析<Bean>元素的<property>设置
+      //解析\<Bean\>元素的\<property\>设置
       parsePropertyElements(ele, bd);
-      //解析<Bean>元素的qualifier属性
+      //解析\<Bean\>元素的qualifier属性
       parseQualifierElements(ele, bd);
 
       //为当前解析的Bean设置所需的资源和依赖对象
@@ -1834,28 +1834,28 @@ public AbstractBeanDefinition parseBeanDefinitionElement(
       this.parseState.pop();
    }
 
-   //解析<Bean>元素出错时，返回null
+   //解析\<Bean\>元素出错时，返回null
    return null;
 }
 ```
 
-只要使用过 Spring，对 Spring 配置文件比较熟悉的人，通过对上述源码的分析，就会明白我们在 Spring 配置文件中<Bean>元素的中配置的属性就是通过该方法解析和设置到 Bean 中去的。 注意:在解析<Bean>元素过程中没有创建和实例化 Bean 对象，只是创建了 Bean 对象的定义类 BeanDefinition，将<Bean>元素中的配置信息设置到 BeanDefinition 中作为记录，当依赖注入时才 使用这些记录信息创建和实例化具体的 Bean 对象。 上面方法中一些对一些配置如元信息(meta)、qualifier 等的解析，我们在 Spring 中配置时使用的也不 多，我们在使用 Spring 的<Bean>元素时，配置最多的是<property>属性，因此我们下面继续分析源 码，了解 Bean 的属性在解析时是如何设置的。
+只要使用过 Spring，对 Spring 配置文件比较熟悉的人，通过对上述源码的分析，就会明白我们在 Spring 配置文件中\<Bean\>元素的中配置的属性就是通过该方法解析和设置到 Bean 中去的。 注意:在解析\<Bean\>元素过程中没有创建和实例化 Bean 对象，只是创建了 Bean 对象的定义类 BeanDefinition，将\<Bean\>元素中的配置信息设置到 BeanDefinition 中作为记录，当依赖注入时才 使用这些记录信息创建和实例化具体的 Bean 对象。 上面方法中一些对一些配置如元信息(meta)、qualifier 等的解析，我们在 Spring 中配置时使用的也不 多，我们在使用 Spring 的\<Bean\>元素时，配置最多的是\<property\>属性，因此我们下面继续分析源 码，了解 Bean 的属性在解析时是如何设置的。
 
-### 13、载入<property>元素
+### 13、载入\<property\>元素
 
-BeanDefinitionParserDelegate 在解析<Bean>调用 parsePropertyElements()方法解析<Bean>元 素中的<property>属性子元素，解析源码如下:
+BeanDefinitionParserDelegate 在解析\<Bean\>调用 parsePropertyElements()方法解析\<Bean\>元 素中的\<property\>属性子元素，解析源码如下:
 
 ```java
 /**
  * Parse property sub-elements of the given bean element.
  */
-//解析<Bean>元素中的<property>子元素
+//解析\<Bean\>元素中的\<property\>子元素
 public void parsePropertyElements(Element beanEle, BeanDefinition bd) {
-   //获取<Bean>元素中所有的子元素
+   //获取\<Bean\>元素中所有的子元素
    NodeList nl = beanEle.getChildNodes();
-   for (int i = 0; i < nl.getLength(); i++) {
+   for (int i = 0; i \< nl.getLength(); i++) {
       Node node = nl.item(i);
-      //如果子元素是<property>子元素，则调用解析<property>子元素方法解析
+      //如果子元素是\<property\>子元素，则调用解析\<property\>子元素方法解析
       if (isCandidateElement(node) && nodeNameEquals(node, PROPERTY_ELEMENT)) {
          parsePropertyElement((Element) node, bd);
       }
@@ -1867,7 +1867,7 @@ public void parsePropertyElements(Element beanEle, BeanDefinition bd) {
  */
 public void parseQualifierElements(Element beanEle, AbstractBeanDefinition bd) {
    NodeList nl = beanEle.getChildNodes();
-   for (int i = 0; i < nl.getLength(); i++) {
+   for (int i = 0; i \< nl.getLength(); i++) {
       Node node = nl.item(i);
       if (isCandidateElement(node) && nodeNameEquals(node, QUALIFIER_ELEMENT)) {
          parseQualifierElement((Element) node, bd);
@@ -1880,7 +1880,7 @@ public void parseQualifierElements(Element beanEle, AbstractBeanDefinition bd) {
  */
 public void parseLookupOverrideSubElements(Element beanEle, MethodOverrides overrides) {
    NodeList nl = beanEle.getChildNodes();
-   for (int i = 0; i < nl.getLength(); i++) {
+   for (int i = 0; i \< nl.getLength(); i++) {
       Node node = nl.item(i);
       if (isCandidateElement(node) && nodeNameEquals(node, LOOKUP_METHOD_ELEMENT)) {
          Element ele = (Element) node;
@@ -1898,7 +1898,7 @@ public void parseLookupOverrideSubElements(Element beanEle, MethodOverrides over
  */
 public void parseReplacedMethodSubElements(Element beanEle, MethodOverrides overrides) {
    NodeList nl = beanEle.getChildNodes();
-   for (int i = 0; i < nl.getLength(); i++) {
+   for (int i = 0; i \< nl.getLength(); i++) {
       Node node = nl.item(i);
       if (isCandidateElement(node) && nodeNameEquals(node, REPLACED_METHOD_ELEMENT)) {
          Element replacedMethodEle = (Element) node;
@@ -1906,7 +1906,7 @@ public void parseReplacedMethodSubElements(Element beanEle, MethodOverrides over
          String callback = replacedMethodEle.getAttribute(REPLACER_ATTRIBUTE);
          ReplaceOverride replaceOverride = new ReplaceOverride(name, callback);
          // Look for arg-type match elements.
-         List<Element> argTypeEles = DomUtils.getChildElementsByTagName(replacedMethodEle, ARG_TYPE_ELEMENT);
+         List\<Element\> argTypeEles = DomUtils.getChildElementsByTagName(replacedMethodEle, ARG_TYPE_ELEMENT);
          for (Element argTypeEle : argTypeEles) {
             String match = argTypeEle.getAttribute(ARG_TYPE_MATCH_ATTRIBUTE);
             match = (StringUtils.hasText(match) ? match : DomUtils.getTextValue(argTypeEle));
@@ -1930,7 +1930,7 @@ public void parseConstructorArgElement(Element ele, BeanDefinition bd) {
    if (StringUtils.hasLength(indexAttr)) {
       try {
          int index = Integer.parseInt(indexAttr);
-         if (index < 0) {
+         if (index \< 0) {
             error("'index' cannot be lower than 0", ele);
          }
          else {
@@ -1984,9 +1984,9 @@ public void parseConstructorArgElement(Element ele, BeanDefinition bd) {
 /**
  * Parse a property element.
  */
-//解析<property>元素
+//解析\<property\>元素
 public void parsePropertyElement(Element ele, BeanDefinition bd) {
-   //获取<property>元素的名字
+   //获取\<property\>元素的名字
    String propertyName = ele.getAttribute(NAME_ATTRIBUTE);
    if (!StringUtils.hasLength(propertyName)) {
       error("Tag 'property' must have a 'name' attribute", ele);
@@ -2004,7 +2004,7 @@ public void parsePropertyElement(Element ele, BeanDefinition bd) {
       Object val = parsePropertyValue(ele, bd, propertyName);
       //根据property的名字和值创建property实例
       PropertyValue pv = new PropertyValue(propertyName, val);
-      //解析<property>元素中的属性
+      //解析\<property\>元素中的属性
       parseMetaElements(ele, pv);
       pv.setSource(extractSource(ele));
       bd.getPropertyValues().addPropertyValue(pv);
@@ -2032,7 +2032,7 @@ public void parseQualifierElement(Element ele, AbstractBeanDefinition bd) {
          qualifier.setAttribute(AutowireCandidateQualifier.VALUE_KEY, value);
       }
       NodeList nl = ele.getChildNodes();
-      for (int i = 0; i < nl.getLength(); i++) {
+      for (int i = 0; i \< nl.getLength(); i++) {
          Node node = nl.item(i);
          if (isCandidateElement(node) && nodeNameEquals(node, QUALIFIER_ATTRIBUTE_ELEMENT)) {
             Element attributeEle = (Element) node;
@@ -2064,14 +2064,14 @@ public void parseQualifierElement(Element ele, AbstractBeanDefinition bd) {
 @Nullable
 public Object parsePropertyValue(Element ele, BeanDefinition bd, @Nullable String propertyName) {
    String elementName = (propertyName != null) ?
-               "<property> element for property '" + propertyName + "'" :
-               "<constructor-arg> element";
+               "\<property\> element for property '" + propertyName + "'" :
+               "\<constructor-arg\> element";
 
    // Should only have one child element: ref, value, list, etc.
-   //获取<property>的所有子元素，只能是其中一种类型:ref,value,list,etc等
+   //获取\<property\>的所有子元素，只能是其中一种类型:ref,value,list,etc等
    NodeList nl = ele.getChildNodes();
    Element subElement = null;
-   for (int i = 0; i < nl.getLength(); i++) {
+   for (int i = 0; i \< nl.getLength(); i++) {
       Node node = nl.item(i);
       //子元素不是description和meta属性
       if (node instanceof Element && !nodeNameEquals(node, DESCRIPTION_ELEMENT) &&
@@ -2081,7 +2081,7 @@ public Object parsePropertyValue(Element ele, BeanDefinition bd, @Nullable Strin
             error(elementName + " must not contain more than one sub-element", ele);
          }
          else {
-            //当前<property>元素包含有子元素
+            //当前\<property\>元素包含有子元素
             subElement = (Element) node;
          }
       }
@@ -2118,9 +2118,9 @@ public Object parsePropertyValue(Element ele, BeanDefinition bd, @Nullable Strin
       valueHolder.setSource(extractSource(ele));
       return valueHolder;
    }
-   //如果当前<property>元素还有子元素
+   //如果当前\<property\>元素还有子元素
    else if (subElement != null) {
-      //解析<property>的子元素
+      //解析\<property\>的子元素
       return parsePropertySubElement(subElement, bd);
    }
    else {
@@ -2141,16 +2141,16 @@ public Object parsePropertySubElement(Element ele, @Nullable BeanDefinition bd) 
  * constructor-arg element.
  * @param ele subelement of property element; we don't know which yet
  * @param defaultValueType the default type (class name) for any
- * {@code <value>} tag that might be created
+ * {@code \<value\>} tag that might be created
  */
-//解析<property>元素中ref,value或者集合等子元素
+//解析\<property\>元素中ref,value或者集合等子元素
 @Nullable
 public Object parsePropertySubElement(Element ele, @Nullable BeanDefinition bd, @Nullable String defaultValueType) {
-   //如果<property>没有使用Spring默认的命名空间，则使用用户自定义的规则解析内嵌元素
+   //如果\<property\>没有使用Spring默认的命名空间，则使用用户自定义的规则解析内嵌元素
    if (!isDefaultNamespace(ele)) {
       return parseNestedCustomElement(ele, bd);
    }
-   //如果子元素是bean，则使用解析<Bean>元素的方法解析
+   //如果子元素是bean，则使用解析\<Bean\>元素的方法解析
    else if (nodeNameEquals(ele, BEAN_ELEMENT)) {
       BeanDefinitionHolder nestedBd = parseBeanDefinitionElement(ele, bd);
       if (nestedBd != null) {
@@ -2166,16 +2166,16 @@ public Object parsePropertySubElement(Element ele, @Nullable BeanDefinition bd, 
       boolean toParent = false;
       if (!StringUtils.hasLength(refName)) {
          // A reference to the id of another bean in a parent context.
-         //获取<property>元素中parent属性值，引用父级容器中的Bean
+         //获取\<property\>元素中parent属性值，引用父级容器中的Bean
          refName = ele.getAttribute(PARENT_REF_ATTRIBUTE);
          toParent = true;
          if (!StringUtils.hasLength(refName)) {
-            error("'bean' or 'parent' is required for <ref> element", ele);
+            error("'bean' or 'parent' is required for \<ref\> element", ele);
             return null;
          }
       }
       if (!StringUtils.hasText(refName)) {
-         error("<ref> element contains empty target attribute", ele);
+         error("\<ref\> element contains empty target attribute", ele);
          return null;
       }
       //创建ref类型数据，指向被引用的对象
@@ -2184,15 +2184,15 @@ public Object parsePropertySubElement(Element ele, @Nullable BeanDefinition bd, 
       ref.setSource(extractSource(ele));
       return ref;
    }
-   //如果子元素是<idref>，使用解析ref元素的方法解析
+   //如果子元素是\<idref\>，使用解析ref元素的方法解析
    else if (nodeNameEquals(ele, IDREF_ELEMENT)) {
       return parseIdRefElement(ele);
    }
-   //如果子元素是<value>，使用解析value元素的方法解析
+   //如果子元素是\<value\>，使用解析value元素的方法解析
    else if (nodeNameEquals(ele, VALUE_ELEMENT)) {
       return parseValueElement(ele, defaultValueType);
    }
-   //如果子元素是null，为<property>设置一个封装null值的字符串数据
+   //如果子元素是null，为\<property\>设置一个封装null值的字符串数据
    else if (nodeNameEquals(ele, NULL_ELEMENT)) {
       // It's a distinguished null value. Let's wrap it in a TypedStringValue
       // object in order to preserve the source location.
@@ -2200,23 +2200,23 @@ public Object parsePropertySubElement(Element ele, @Nullable BeanDefinition bd, 
       nullHolder.setSource(extractSource(ele));
       return nullHolder;
    }
-   //如果子元素是<array>，使用解析array集合子元素的方法解析
+   //如果子元素是\<array\>，使用解析array集合子元素的方法解析
    else if (nodeNameEquals(ele, ARRAY_ELEMENT)) {
       return parseArrayElement(ele, bd);
    }
-   //如果子元素是<list>，使用解析list集合子元素的方法解析
+   //如果子元素是\<list\>，使用解析list集合子元素的方法解析
    else if (nodeNameEquals(ele, LIST_ELEMENT)) {
       return parseListElement(ele, bd);
    }
-   //如果子元素是<set>，使用解析set集合子元素的方法解析
+   //如果子元素是\<set\>，使用解析set集合子元素的方法解析
    else if (nodeNameEquals(ele, SET_ELEMENT)) {
       return parseSetElement(ele, bd);
    }
-   //如果子元素是<map>，使用解析map集合子元素的方法解析
+   //如果子元素是\<map\>，使用解析map集合子元素的方法解析
    else if (nodeNameEquals(ele, MAP_ELEMENT)) {
       return parseMapElement(ele, bd);
    }
-   //如果子元素是<props>，使用解析props集合子元素的方法解析
+   //如果子元素是\<props\>，使用解析props集合子元素的方法解析
    else if (nodeNameEquals(ele, PROPS_ELEMENT)) {
       return parsePropsElement(ele);
    }
@@ -2228,7 +2228,7 @@ public Object parsePropertySubElement(Element ele, @Nullable BeanDefinition bd, 
 }
 ```
 
-通过对上述源码的分析，我们可以了解在 Spring 配置文件中，<Bean>元素中<property>元素的相关 配置是如何处理的:
+通过对上述源码的分析，我们可以了解在 Spring 配置文件中，\<Bean\>元素中\<property\>元素的相关 配置是如何处理的:
 
 1. ref 被封装为指向依赖对象一个引用。
 
@@ -2236,11 +2236,11 @@ public Object parsePropertySubElement(Element ele, @Nullable BeanDefinition bd, 
 
 3. ref 和 value 都通过“解析的数据类型属性值.setSource(extractSource(ele));”方法将属性值/引用 与所引用的属性关联起来。
 
-在方法的最后对于<property>元素的子元素通过 parsePropertySubElement ()方法解析，我们继续分 析该方法的源码，了解其解析过程。
+在方法的最后对于\<property\>元素的子元素通过 parsePropertySubElement ()方法解析，我们继续分 析该方法的源码，了解其解析过程。
 
-### **14、载入<property>的子元素**
+### **14、载入\<property\>的子元素**
 
-在 BeanDefinitionParserDelegate 类中的 parsePropertySubElement()方法对<property>中的子元 素解析，源码如下:
+在 BeanDefinitionParserDelegate 类中的 parsePropertySubElement()方法对\<property\>中的子元 素解析，源码如下:
 
 ```java
 /**
@@ -2248,16 +2248,16 @@ public Object parsePropertySubElement(Element ele, @Nullable BeanDefinition bd, 
  * constructor-arg element.
  * @param ele subelement of property element; we don't know which yet
  * @param defaultValueType the default type (class name) for any
- * {@code <value>} tag that might be created
+ * {@code \<value\>} tag that might be created
  */
-//解析<property>元素中ref,value或者集合等子元素
+//解析\<property\>元素中ref,value或者集合等子元素
 @Nullable
 public Object parsePropertySubElement(Element ele, @Nullable BeanDefinition bd, @Nullable String defaultValueType) {
-   //如果<property>没有使用Spring默认的命名空间，则使用用户自定义的规则解析内嵌元素
+   //如果\<property\>没有使用Spring默认的命名空间，则使用用户自定义的规则解析内嵌元素
    if (!isDefaultNamespace(ele)) {
       return parseNestedCustomElement(ele, bd);
    }
-   //如果子元素是bean，则使用解析<Bean>元素的方法解析
+   //如果子元素是bean，则使用解析\<Bean\>元素的方法解析
    else if (nodeNameEquals(ele, BEAN_ELEMENT)) {
       BeanDefinitionHolder nestedBd = parseBeanDefinitionElement(ele, bd);
       if (nestedBd != null) {
@@ -2273,16 +2273,16 @@ public Object parsePropertySubElement(Element ele, @Nullable BeanDefinition bd, 
       boolean toParent = false;
       if (!StringUtils.hasLength(refName)) {
          // A reference to the id of another bean in a parent context.
-         //获取<property>元素中parent属性值，引用父级容器中的Bean
+         //获取\<property\>元素中parent属性值，引用父级容器中的Bean
          refName = ele.getAttribute(PARENT_REF_ATTRIBUTE);
          toParent = true;
          if (!StringUtils.hasLength(refName)) {
-            error("'bean' or 'parent' is required for <ref> element", ele);
+            error("'bean' or 'parent' is required for \<ref\> element", ele);
             return null;
          }
       }
       if (!StringUtils.hasText(refName)) {
-         error("<ref> element contains empty target attribute", ele);
+         error("\<ref\> element contains empty target attribute", ele);
          return null;
       }
       //创建ref类型数据，指向被引用的对象
@@ -2291,15 +2291,15 @@ public Object parsePropertySubElement(Element ele, @Nullable BeanDefinition bd, 
       ref.setSource(extractSource(ele));
       return ref;
    }
-   //如果子元素是<idref>，使用解析ref元素的方法解析
+   //如果子元素是\<idref\>，使用解析ref元素的方法解析
    else if (nodeNameEquals(ele, IDREF_ELEMENT)) {
       return parseIdRefElement(ele);
    }
-   //如果子元素是<value>，使用解析value元素的方法解析
+   //如果子元素是\<value\>，使用解析value元素的方法解析
    else if (nodeNameEquals(ele, VALUE_ELEMENT)) {
       return parseValueElement(ele, defaultValueType);
    }
-   //如果子元素是null，为<property>设置一个封装null值的字符串数据
+   //如果子元素是null，为\<property\>设置一个封装null值的字符串数据
    else if (nodeNameEquals(ele, NULL_ELEMENT)) {
       // It's a distinguished null value. Let's wrap it in a TypedStringValue
       // object in order to preserve the source location.
@@ -2307,23 +2307,23 @@ public Object parsePropertySubElement(Element ele, @Nullable BeanDefinition bd, 
       nullHolder.setSource(extractSource(ele));
       return nullHolder;
    }
-   //如果子元素是<array>，使用解析array集合子元素的方法解析
+   //如果子元素是\<array\>，使用解析array集合子元素的方法解析
    else if (nodeNameEquals(ele, ARRAY_ELEMENT)) {
       return parseArrayElement(ele, bd);
    }
-   //如果子元素是<list>，使用解析list集合子元素的方法解析
+   //如果子元素是\<list\>，使用解析list集合子元素的方法解析
    else if (nodeNameEquals(ele, LIST_ELEMENT)) {
       return parseListElement(ele, bd);
    }
-   //如果子元素是<set>，使用解析set集合子元素的方法解析
+   //如果子元素是\<set\>，使用解析set集合子元素的方法解析
    else if (nodeNameEquals(ele, SET_ELEMENT)) {
       return parseSetElement(ele, bd);
    }
-   //如果子元素是<map>，使用解析map集合子元素的方法解析
+   //如果子元素是\<map\>，使用解析map集合子元素的方法解析
    else if (nodeNameEquals(ele, MAP_ELEMENT)) {
       return parseMapElement(ele, bd);
    }
-   //如果子元素是<props>，使用解析props集合子元素的方法解析
+   //如果子元素是\<props\>，使用解析props集合子元素的方法解析
    else if (nodeNameEquals(ele, PROPS_ELEMENT)) {
       return parsePropsElement(ele);
    }
@@ -2335,29 +2335,29 @@ public Object parsePropertySubElement(Element ele, @Nullable BeanDefinition bd, 
 }
 ```
 
-通过上述源码分析，我们明白了在 Spring 配置文件中，对<property>元素中配置的 array、list、set、 map、prop 等各种集合子元素的都通过上述方法解析，生成对应的数据对象，比如 ManagedList、 ManagedArray、ManagedSet 等，这些 Managed 类是 Spring 对象 BeanDefiniton 的数据封装，对 集合数据类型的具体解析有各自的解析方法实现，解析方法的命名非常规范，一目了然，我们对<list> 集合元素的解析方法进行源码分析，了解其实现过程。
+通过上述源码分析，我们明白了在 Spring 配置文件中，对\<property\>元素中配置的 array、list、set、 map、prop 等各种集合子元素的都通过上述方法解析，生成对应的数据对象，比如 ManagedList、 ManagedArray、ManagedSet 等，这些 Managed 类是 Spring 对象 BeanDefiniton 的数据封装，对 集合数据类型的具体解析有各自的解析方法实现，解析方法的命名非常规范，一目了然，我们对\<list\> 集合元素的解析方法进行源码分析，了解其实现过程。
 
-### **15、载入<list>的子元素**
+### **15、载入\<list\>的子元素**
 
-在 BeanDefinitionParserDelegate 类中的 parseListElement()方法就是具体实现解析<property>元 素中的<list>集合子元素，源码如下:
+在 BeanDefinitionParserDelegate 类中的 parseListElement()方法就是具体实现解析\<property\>元 素中的\<list\>集合子元素，源码如下:
 
 ```java
 /**
  * Parse a list element.
  */
-//解析<list>集合子元素
-public List<Object> parseListElement(Element collectionEle, @Nullable BeanDefinition bd) {
-   //获取<list>元素中的value-type属性，即获取集合元素的数据类型
+//解析\<list\>集合子元素
+public List\<Object\> parseListElement(Element collectionEle, @Nullable BeanDefinition bd) {
+   //获取\<list\>元素中的value-type属性，即获取集合元素的数据类型
    String defaultElementType = collectionEle.getAttribute(VALUE_TYPE_ATTRIBUTE);
-   //获取<list>集合元素中的所有子节点
+   //获取\<list\>集合元素中的所有子节点
    NodeList nl = collectionEle.getChildNodes();
    //Spring中将List封装为ManagedList
-   ManagedList<Object> target = new ManagedList<>(nl.getLength());
+   ManagedList\<Object\> target = new ManagedList\<\>(nl.getLength());
    target.setSource(extractSource(collectionEle));
    //设置集合目标数据类型
    target.setElementTypeName(defaultElementType);
    target.setMergeEnabled(parseMergeAttribute(collectionEle));
-   //具体的<list>元素解析
+   //具体的\<list\>元素解析
    parseCollectionElements(nl, target, bd, defaultElementType);
    return target;
 }
@@ -2365,10 +2365,10 @@ public List<Object> parseListElement(Element collectionEle, @Nullable BeanDefini
 /**
  * Parse a set element.
  */
-public Set<Object> parseSetElement(Element collectionEle, @Nullable BeanDefinition bd) {
+public Set\<Object\> parseSetElement(Element collectionEle, @Nullable BeanDefinition bd) {
    String defaultElementType = collectionEle.getAttribute(VALUE_TYPE_ATTRIBUTE);
    NodeList nl = collectionEle.getChildNodes();
-   ManagedSet<Object> target = new ManagedSet<>(nl.getLength());
+   ManagedSet\<Object\> target = new ManagedSet\<\>(nl.getLength());
    target.setSource(extractSource(collectionEle));
    target.setElementTypeName(defaultElementType);
    target.setMergeEnabled(parseMergeAttribute(collectionEle));
@@ -2376,11 +2376,11 @@ public Set<Object> parseSetElement(Element collectionEle, @Nullable BeanDefiniti
    return target;
 }
 
-//具体解析<list>集合元素，<array>、<list>和<set>都使用该方法解析
+//具体解析\<list\>集合元素，\<array\>、\<list\>和\<set\>都使用该方法解析
 protected void parseCollectionElements(
-      NodeList elementNodes, Collection<Object> target, @Nullable BeanDefinition bd, String defaultElementType) {
+      NodeList elementNodes, Collection\<Object\> target, @Nullable BeanDefinition bd, String defaultElementType) {
    //遍历集合所有节点
-   for (int i = 0; i < elementNodes.getLength(); i++) {
+   for (int i = 0; i \< elementNodes.getLength(); i++) {
       Node node = elementNodes.item(i);
       //节点不是description节点
       if (node instanceof Element && !nodeNameEquals(node, DESCRIPTION_ELEMENT)) {
@@ -2439,7 +2439,7 @@ DefaultListableBeanFactory 中使用一个 HashMap 的集合对象存放 IOC 容
 ```java
 /** Map of bean definition objects, keyed by bean name */
 //存储注册信息的BeanDefinition
-private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>(256);
+private final Map\<String, BeanDefinition\> beanDefinitionMap = new ConcurrentHashMap\<\>(256);
 
 	//向IOC容器注册解析的BeanDefiniton
 	@Override
@@ -2470,7 +2470,7 @@ private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHash
 						"Cannot register bean definition [" + beanDefinition + "] for bean '" + beanName +
 						"': There is already [" + oldBeanDefinition + "] bound.");
 			}
-			else if (oldBeanDefinition.getRole() < beanDefinition.getRole()) {
+			else if (oldBeanDefinition.getRole() \< beanDefinition.getRole()) {
 				// e.g. was ROLE_APPLICATION, now overriding with ROLE_SUPPORT or ROLE_INFRASTRUCTURE
 				if (this.logger.isWarnEnabled()) {
 					this.logger.warn("Overriding user-defined bean definition for bean '" + beanName +
@@ -2500,12 +2500,12 @@ private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHash
 				//注册的过程中需要线程同步，以保证数据的一致性
 				synchronized (this.beanDefinitionMap) {
 					this.beanDefinitionMap.put(beanName, beanDefinition);
-					List<String> updatedDefinitions = new ArrayList<>(this.beanDefinitionNames.size() + 1);
+					List\<String\> updatedDefinitions = new ArrayList\<\>(this.beanDefinitionNames.size() + 1);
 					updatedDefinitions.addAll(this.beanDefinitionNames);
 					updatedDefinitions.add(beanName);
 					this.beanDefinitionNames = updatedDefinitions;
 					if (this.manualSingletonNames.contains(beanName)) {
-						Set<String> updatedSingletons = new LinkedHashSet<>(this.manualSingletonNames);
+						Set\<String\> updatedSingletons = new LinkedHashSet\<\>(this.manualSingletonNames);
 						updatedSingletons.remove(beanName);
 						this.manualSingletonNames = updatedSingletons;
 					}
@@ -2582,7 +2582,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
     * e.g. {@link Configuration @Configuration} classes
     */
    //最常用的构造函数，通过将涉及到的配置类传递给该构造函数，以实现将相应配置类中的Bean自动注册到容器中
-   public AnnotationConfigApplicationContext(Class<?>... annotatedClasses) {
+   public AnnotationConfigApplicationContext(Class\<?\>... annotatedClasses) {
       this();
       register(annotatedClasses);
       refresh();
@@ -2603,7 +2603,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 
    /**
     * {@inheritDoc}
-    * <p>Delegates given environment to underlying {@link AnnotatedBeanDefinitionReader}
+    * \<p\>Delegates given environment to underlying {@link AnnotatedBeanDefinitionReader}
     * and {@link ClassPathBeanDefinitionScanner} members.
     */
    @Override
@@ -2616,8 +2616,8 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
    /**
     * Provide a custom {@link BeanNameGenerator} for use with {@link AnnotatedBeanDefinitionReader}
     * and/or {@link ClassPathBeanDefinitionScanner}, if any.
-    * <p>Default is {@link org.springframework.context.annotation.AnnotationBeanNameGenerator}.
-    * <p>Any call to this method must occur prior to calls to {@link #register(Class...)}
+    * \<p\>Default is {@link org.springframework.context.annotation.AnnotationBeanNameGenerator}.
+    * \<p\>Any call to this method must occur prior to calls to {@link #register(Class...)}
     * and/or {@link #scan(String...)}.
     * @see AnnotatedBeanDefinitionReader#setBeanNameGenerator
     * @see ClassPathBeanDefinitionScanner#setBeanNameGenerator
@@ -2632,8 +2632,8 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 
    /**
     * Set the {@link ScopeMetadataResolver} to use for detected bean classes.
-    * <p>The default is an {@link AnnotationScopeMetadataResolver}.
-    * <p>Any call to this method must occur prior to calls to {@link #register(Class...)}
+    * \<p\>The default is an {@link AnnotationScopeMetadataResolver}.
+    * \<p\>Any call to this method must occur prior to calls to {@link #register(Class...)}
     * and/or {@link #scan(String...)}.
     */
    //为容器的注解Bean读取器和注解Bean扫描器设置作用范围元信息解析器
@@ -2649,7 +2649,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 
    /**
     * Register one or more annotated classes to be processed.
-    * <p>Note that {@link #refresh()} must be called in order for the context
+    * \<p\>Note that {@link #refresh()} must be called in order for the context
     * to fully process the new classes.
     * @param annotatedClasses one or more annotated classes,
     * e.g. {@link Configuration @Configuration} classes
@@ -2658,14 +2658,14 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
     */
    //为容器注册一个要被处理的注解Bean，新注册的Bean，必须手动调用容器的
    //refresh()方法刷新容器，触发容器对新注册的Bean的处理
-   public void register(Class<?>... annotatedClasses) {
+   public void register(Class\<?\>... annotatedClasses) {
       Assert.notEmpty(annotatedClasses, "At least one annotated class must be specified");
       this.reader.register(annotatedClasses);
    }
 
    /**
     * Perform a scan within the specified base packages.
-    * <p>Note that {@link #refresh()} must be called in order for the context
+    * \<p\>Note that {@link #refresh()} must be called in order for the context
     * to fully process the new classes.
     * @param basePackages the packages to check for annotated classes
     * @see #register(Class...)
@@ -2687,7 +2687,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
     * Register a bean from the given bean class, deriving its metadata from
     * class-declared annotations, and optionally providing explicit constructor
     * arguments for consideration in the autowiring process.
-    * <p>The bean name will be generated according to annotated component rules.
+    * \<p\>The bean name will be generated according to annotated component rules.
     * @param annotatedClass the class of the bean
     * @param constructorArguments argument values to be fed into Spring's
     * constructor resolution algorithm, resolving either all arguments or just
@@ -2695,7 +2695,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
     * (may be {@code null} or empty)
     * @since 5.0
     */
-   public <T> void registerBean(Class<T> annotatedClass, Object... constructorArguments) {
+   public \<T\> void registerBean(Class\<T\> annotatedClass, Object... constructorArguments) {
       registerBean(null, annotatedClass, constructorArguments);
    }
 
@@ -2711,9 +2711,9 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
     * (may be {@code null} or empty)
     * @since 5.0
     */
-   public <T> void registerBean(@Nullable String beanName, Class<T> annotatedClass, Object... constructorArguments) {
+   public \<T\> void registerBean(@Nullable String beanName, Class\<T\> annotatedClass, Object... constructorArguments) {
       this.reader.doRegisterBean(annotatedClass, null, beanName, null,
-            bd -> {
+            bd -\> {
                for (Object arg : constructorArguments) {
                   bd.getConstructorArgumentValues().addGenericArgumentValue(arg);
                }
@@ -2721,7 +2721,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
    }
 
    @Override
-   public <T> void registerBean(@Nullable String beanName, Class<T> beanClass, @Nullable Supplier<T> supplier,
+   public \<T\> void registerBean(@Nullable String beanName, Class\<T\> beanClass, @Nullable Supplier\<T\> supplier,
          BeanDefinitionCustomizer... customizers) {
 
       this.reader.doRegisterBean(beanClass, supplier, beanName, null, customizers);
@@ -2747,14 +2747,14 @@ AnnotatedBeanDefinitionReader 的 register()方法向容器注册指定的注解
 ```java
 /**
  * Register one or more annotated classes to be processed.
- * <p>Calls to {@code register} are idempotent; adding the same
+ * \<p\>Calls to {@code register} are idempotent; adding the same
  * annotated class more than once has no additional effect.
  * @param annotatedClasses one or more annotated classes,
  * e.g. {@link Configuration @Configuration} classes
  */
 //注册多个注解Bean定义类
-public void register(Class<?>... annotatedClasses) {
-   for (Class<?> annotatedClass : annotatedClasses) {
+public void register(Class\<?\>... annotatedClasses) {
+   for (Class\<?\> annotatedClass : annotatedClasses) {
       registerBean(annotatedClass);
    }
 }
@@ -2765,7 +2765,7 @@ public void register(Class<?>... annotatedClasses) {
  * @param annotatedClass the class of the bean
  */
 //注册一个注解Bean定义类
-public void registerBean(Class<?> annotatedClass) {
+public void registerBean(Class\<?\> annotatedClass) {
    doRegisterBean(annotatedClass, null, null, null);
 }
 
@@ -2778,7 +2778,7 @@ public void registerBean(Class<?> annotatedClass) {
  * (may be {@code null})
  * @since 5.0
  */
-public <T> void registerBean(Class<T> annotatedClass, @Nullable Supplier<T> instanceSupplier) {
+public \<T\> void registerBean(Class\<T\> annotatedClass, @Nullable Supplier\<T\> instanceSupplier) {
    doRegisterBean(annotatedClass, instanceSupplier, null, null);
 }
 
@@ -2792,7 +2792,7 @@ public <T> void registerBean(Class<T> annotatedClass, @Nullable Supplier<T> inst
  * (may be {@code null})
  * @since 5.0
  */
-public <T> void registerBean(Class<T> annotatedClass, String name, @Nullable Supplier<T> instanceSupplier) {
+public \<T\> void registerBean(Class\<T\> annotatedClass, String name, @Nullable Supplier\<T\> instanceSupplier) {
    doRegisterBean(annotatedClass, instanceSupplier, name, null);
 }
 
@@ -2805,7 +2805,7 @@ public <T> void registerBean(Class<T> annotatedClass, String name, @Nullable Sup
  */
 //Bean定义读取器注册注解Bean定义的入口方法
 @SuppressWarnings("unchecked")
-public void registerBean(Class<?> annotatedClass, Class<? extends Annotation>... qualifiers) {
+public void registerBean(Class\<?\> annotatedClass, Class\<? extends Annotation\>... qualifiers) {
    doRegisterBean(annotatedClass, null, null, qualifiers);
 }
 
@@ -2819,7 +2819,7 @@ public void registerBean(Class<?> annotatedClass, Class<? extends Annotation>...
  */
 //Bean定义读取器向容器注册注解Bean定义类
 @SuppressWarnings("unchecked")
-public void registerBean(Class<?> annotatedClass, String name, Class<? extends Annotation>... qualifiers) {
+public void registerBean(Class\<?\> annotatedClass, String name, Class\<? extends Annotation\>... qualifiers) {
    doRegisterBean(annotatedClass, null, name, qualifiers);
 }
 
@@ -2837,8 +2837,8 @@ public void registerBean(Class<?> annotatedClass, String name, Class<? extends A
  * @since 5.0
  */
 //Bean定义读取器向容器注册注解Bean定义类
-<T> void doRegisterBean(Class<T> annotatedClass, @Nullable Supplier<T> instanceSupplier, @Nullable String name,
-      @Nullable Class<? extends Annotation>[] qualifiers, BeanDefinitionCustomizer... definitionCustomizers) {
+\<T\> void doRegisterBean(Class\<T\> annotatedClass, @Nullable Supplier\<T\> instanceSupplier, @Nullable String name,
+      @Nullable Class\<? extends Annotation\>[] qualifiers, BeanDefinitionCustomizer... definitionCustomizers) {
 
    //根据指定的注解Bean定义类，创建Spring容器中对注解Bean的封装的数据结构
    AnnotatedGenericBeanDefinition abd = new AnnotatedGenericBeanDefinition(annotatedClass);
@@ -2861,7 +2861,7 @@ public void registerBean(Class<?> annotatedClass, String name, Class<? extends A
    //主要是配置的关于autowiring自动依赖注入装配的限定条件，即@Qualifier注解
    //Spring自动依赖注入装配默认是按类型装配，如果使用@Qualifier则按名称
    if (qualifiers != null) {
-      for (Class<? extends Annotation> qualifier : qualifiers) {
+      for (Class\<? extends Annotation\> qualifier : qualifiers) {
          //如果配置了@Primary注解，设置该Bean为autowiring自动依赖注入装//配时的首选
          if (Primary.class == qualifier) {
             abd.setPrimary(true);
@@ -3047,14 +3047,14 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
 
    /**
     * Create a new {@code ClassPathBeanDefinitionScanner} for the given bean factory.
-    * <p>If the passed-in bean factory does not only implement the
+    * \<p\>If the passed-in bean factory does not only implement the
     * {@code BeanDefinitionRegistry} interface but also the {@code ResourceLoader}
     * interface, it will be used as default {@code ResourceLoader} as well. This will
     * usually be the case for {@link org.springframework.context.ApplicationContext}
     * implementations.
-    * <p>If given a plain {@code BeanDefinitionRegistry}, the default {@code ResourceLoader}
+    * \<p\>If given a plain {@code BeanDefinitionRegistry}, the default {@code ResourceLoader}
     * will be a {@link org.springframework.core.io.support.PathMatchingResourcePatternResolver}.
-    * <p>If the passed-in bean factory also implements {@link EnvironmentCapable} its
+    * \<p\>If the passed-in bean factory also implements {@link EnvironmentCapable} its
     * environment will be used by this reader.  Otherwise, the reader will initialize and
     * use a {@link org.springframework.core.env.StandardEnvironment}. All
     * {@code ApplicationContext} implementations are {@code EnvironmentCapable}, while
@@ -3079,11 +3079,11 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
    /**
     * Create a new {@code ClassPathBeanDefinitionScanner} for the given bean factory and
     * using the given {@link Environment} when evaluating bean definition profile metadata.
-    * <p>If the passed-in bean factory does not only implement the {@code
+    * \<p\>If the passed-in bean factory does not only implement the {@code
     * BeanDefinitionRegistry} interface but also the {@link ResourceLoader} interface, it
     * will be used as default {@code ResourceLoader} as well. This will usually be the
     * case for {@link org.springframework.context.ApplicationContext} implementations.
-    * <p>If given a plain {@code BeanDefinitionRegistry}, the default {@code ResourceLoader}
+    * \<p\>If given a plain {@code BeanDefinitionRegistry}, the default {@code ResourceLoader}
     * will be a {@link org.springframework.core.io.support.PathMatchingResourcePatternResolver}.
     * @param registry the {@code BeanFactory} to load bean definitions into, in the form
     * of a {@code BeanDefinitionRegistry}
@@ -3170,7 +3170,7 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
 
    /**
     * Set the BeanNameGenerator to use for detected bean classes.
-    * <p>Default is a {@link AnnotationBeanNameGenerator}.
+    * \<p\>Default is a {@link AnnotationBeanNameGenerator}.
     */
    public void setBeanNameGenerator(@Nullable BeanNameGenerator beanNameGenerator) {
       this.beanNameGenerator = (beanNameGenerator != null ? beanNameGenerator : new AnnotationBeanNameGenerator());
@@ -3179,7 +3179,7 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
    /**
     * Set the ScopeMetadataResolver to use for detected bean classes.
     * Note that this will override any custom "scopedProxyMode" setting.
-    * <p>The default is an {@link AnnotationScopeMetadataResolver}.
+    * \<p\>The default is an {@link AnnotationScopeMetadataResolver}.
     * @see #setScopedProxyMode
     */
    public void setScopeMetadataResolver(@Nullable ScopeMetadataResolver scopeMetadataResolver) {
@@ -3190,7 +3190,7 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
    /**
     * Specify the proxy behavior for non-singleton scoped beans.
     * Note that this will override any custom "scopeMetadataResolver" setting.
-    * <p>The default is {@link ScopedProxyMode#NO}.
+    * \<p\>The default is {@link ScopedProxyMode#NO}.
     * @see #setScopeMetadataResolver
     */
    public void setScopedProxyMode(ScopedProxyMode scopedProxyMode) {
@@ -3199,7 +3199,7 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
 
    /**
     * Specify whether to register annotation config post-processors.
-    * <p>The default is to register the post-processors. Turn this off
+    * \<p\>The default is to register the post-processors. Turn this off
     * to be able to ignore the annotations or to process them differently.
     */
    public void setIncludeAnnotationConfig(boolean includeAnnotationConfig) {
@@ -3233,21 +3233,21 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
    /**
     * Perform a scan within the specified base packages,
     * returning the registered bean definitions.
-    * <p>This method does <i>not</i> register an annotation config processor
+    * \<p\>This method does \<i\>not\</i\> register an annotation config processor
     * but rather leaves this up to the caller.
     * @param basePackages the packages to check for annotated classes
     * @return set of beans registered if any for tooling registration purposes (never {@code null})
     */
    //类路径Bean定义扫描器扫描给定包及其子包
-   protected Set<BeanDefinitionHolder> doScan(String... basePackages) {
+   protected Set\<BeanDefinitionHolder\> doScan(String... basePackages) {
       Assert.notEmpty(basePackages, "At least one base package must be specified");
       //创建一个集合，存放扫描到Bean定义的封装类
-      Set<BeanDefinitionHolder> beanDefinitions = new LinkedHashSet<>();
+      Set\<BeanDefinitionHolder\> beanDefinitions = new LinkedHashSet\<\>();
       //遍历扫描所有给定的包
       for (String basePackage : basePackages) {
          //调用父类ClassPathScanningCandidateComponentProvider的方法
          //扫描给定类路径，获取符合条件的Bean定义
-         Set<BeanDefinition> candidates = findCandidateComponents(basePackage);
+         Set\<BeanDefinition\> candidates = findCandidateComponents(basePackage);
          //遍历扫描到的Bean
          for (BeanDefinition candidate : candidates) {
             //获取Bean定义类中@Scope注解的值，即获取Bean的作用域
@@ -3296,7 +3296,7 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
 
    /**
     * Register the specified bean with the given registry.
-    * <p>Can be overridden in subclasses, e.g. to adapt the registration
+    * \<p\>Can be overridden in subclasses, e.g. to adapt the registration
     * process or to register further bean definitions for each scanned bean.
     * @param definitionHolder the bean definition plus bean name for the bean
     * @param registry the BeanDefinitionRegistry to register the bean with
@@ -3337,7 +3337,7 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
    /**
     * Determine whether the given new bean definition is compatible with
     * the given existing bean definition.
-    * <p>The default implementation considers them as compatible when the existing
+    * \<p\>The default implementation considers them as compatible when the existing
     * bean definition comes from the same source or from a non-scanning source.
     * @param newDefinition the new bean definition, originated from scanning
     * @param existingDefinition the existing bean definition, potentially an
@@ -3385,10 +3385,10 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 
    //保存过滤规则要包含的注解，即Spring默认的@Component、@Repository、@Service、
    //@Controller注解的Bean，以及JavaEE6的@ManagedBean和JSR-330的@Named注解
-   private final List<TypeFilter> includeFilters = new LinkedList<>();
+   private final List\<TypeFilter\> includeFilters = new LinkedList\<\>();
 
    //保存过滤规则要排除的注解
-   private final List<TypeFilter> excludeFilters = new LinkedList<>();
+   private final List\<TypeFilter\> excludeFilters = new LinkedList\<\>();
 
    @Nullable
    private Environment environment;
@@ -3457,14 +3457,14 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
    }
 
    /**
-    * Add an include type filter to the <i>end</i> of the inclusion list.
+    * Add an include type filter to the \<i\>end\</i\> of the inclusion list.
     */
    public void addIncludeFilter(TypeFilter includeFilter) {
       this.includeFilters.add(includeFilter);
    }
 
    /**
-    * Add an exclude type filter to the <i>front</i> of the exclusion list.
+    * Add an exclude type filter to the \<i\>front\</i\> of the exclusion list.
     */
    public void addExcludeFilter(TypeFilter excludeFilter) {
       this.excludeFilters.add(0, excludeFilter);
@@ -3488,11 +3488,11 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 
    /**
     * Register the default filter for {@link Component @Component}.
-    * <p>This will implicitly register all annotations that have the
+    * \<p\>This will implicitly register all annotations that have the
     * {@link Component @Component} meta-annotation including the
     * {@link Repository @Repository}, {@link Service @Service}, and
     * {@link Controller @Controller} stereotype annotations.
-    * <p>Also supports Java EE 6's {@link javax.annotation.ManagedBean} and
+    * \<p\>Also supports Java EE 6's {@link javax.annotation.ManagedBean} and
     * JSR-330's {@link javax.inject.Named} annotations, if available.
     *
     */
@@ -3507,7 +3507,7 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
       try {
          //向要包含的过滤规则添加JavaEE6的@ManagedBean注解
          this.includeFilters.add(new AnnotationTypeFilter(
-               ((Class<? extends Annotation>) ClassUtils.forName("javax.annotation.ManagedBean", cl)), false));
+               ((Class\<? extends Annotation\>) ClassUtils.forName("javax.annotation.ManagedBean", cl)), false));
          logger.debug("JSR-250 'javax.annotation.ManagedBean' found and supported for component scanning");
       }
       catch (ClassNotFoundException ex) {
@@ -3516,7 +3516,7 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
       try {
          //向要包含的过滤规则添加@Named注解
          this.includeFilters.add(new AnnotationTypeFilter(
-               ((Class<? extends Annotation>) ClassUtils.forName("javax.inject.Named", cl)), false));
+               ((Class\<? extends Annotation\>) ClassUtils.forName("javax.inject.Named", cl)), false));
          logger.debug("JSR-330 'javax.inject.Named' annotation found and supported for component scanning");
       }
       catch (ClassNotFoundException ex) {
@@ -3527,7 +3527,7 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
    /**
     * Set the Environment to use when resolving placeholders and evaluating
     * {@link Conditional @Conditional}-annotated component classes.
-    * <p>The default is a {@link StandardEnvironment}.
+    * \<p\>The default is a {@link StandardEnvironment}.
     * @param environment the Environment to use
     */
    public void setEnvironment(Environment environment) {
@@ -3555,7 +3555,7 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
    /**
     * Set the {@link ResourceLoader} to use for resource locations.
     * This will typically be a {@link ResourcePatternResolver} implementation.
-    * <p>Default is a {@code PathMatchingResourcePatternResolver}, also capable of
+    * \<p\>Default is a {@code PathMatchingResourcePatternResolver}, also capable of
     * resource pattern resolving through the {@code ResourcePatternResolver} interface.
     * @see org.springframework.core.io.support.ResourcePatternResolver
     * @see org.springframework.core.io.support.PathMatchingResourcePatternResolver
@@ -3583,9 +3583,9 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 
    /**
     * Set the {@link MetadataReaderFactory} to use.
-    * <p>Default is a {@link CachingMetadataReaderFactory} for the specified
+    * \<p\>Default is a {@link CachingMetadataReaderFactory} for the specified
     * {@linkplain #setResourceLoader resource loader}.
-    * <p>Call this setter method <i>after</i> {@link #setResourceLoader} in order
+    * \<p\>Call this setter method \<i\>after\</i\> {@link #setResourceLoader} in order
     * for the given MetadataReaderFactory to override the default factory.
     */
    public void setMetadataReaderFactory(MetadataReaderFactory metadataReaderFactory) {
@@ -3609,7 +3609,7 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
     * @return a corresponding Set of autodetected bean definitions
     */
    //扫描给定类路径的包
-   public Set<BeanDefinition> findCandidateComponents(String basePackage) {
+   public Set\<BeanDefinition\> findCandidateComponents(String basePackage) {
       if (this.componentsIndex != null && indexSupportsIncludeFilters()) {
          return addCandidateComponentsFromIndex(this.componentsIndex, basePackage);
       }
@@ -3642,12 +3642,12 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
     */
    private boolean indexSupportsIncludeFilter(TypeFilter filter) {
       if (filter instanceof AnnotationTypeFilter) {
-         Class<? extends Annotation> annotation = ((AnnotationTypeFilter) filter).getAnnotationType();
+         Class\<? extends Annotation\> annotation = ((AnnotationTypeFilter) filter).getAnnotationType();
          return (AnnotationUtils.isAnnotationDeclaredLocally(Indexed.class, annotation) ||
                annotation.getName().startsWith("javax."));
       }
       if (filter instanceof AssignableTypeFilter) {
-         Class<?> target = ((AssignableTypeFilter) filter).getTargetType();
+         Class\<?\> target = ((AssignableTypeFilter) filter).getTargetType();
          return AnnotationUtils.isAnnotationDeclaredLocally(Indexed.class, target);
       }
       return false;
@@ -3671,11 +3671,11 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
       return null;
    }
 
-   private Set<BeanDefinition> addCandidateComponentsFromIndex(CandidateComponentsIndex index, String basePackage) {
+   private Set\<BeanDefinition\> addCandidateComponentsFromIndex(CandidateComponentsIndex index, String basePackage) {
       //创建存储扫描到的类的集合
-      Set<BeanDefinition> candidates = new LinkedHashSet<>();
+      Set\<BeanDefinition\> candidates = new LinkedHashSet\<\>();
       try {
-         Set<String> types = new HashSet<>();
+         Set\<String\> types = new HashSet\<\>();
          for (TypeFilter filter : this.includeFilters) {
             String stereotype = extractStereotype(filter);
             if (stereotype == null) {
@@ -3718,8 +3718,8 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
       return candidates;
    }
 
-   private Set<BeanDefinition> scanCandidateComponents(String basePackage) {
-      Set<BeanDefinition> candidates = new LinkedHashSet<>();
+   private Set\<BeanDefinition\> scanCandidateComponents(String basePackage) {
+      Set\<BeanDefinition\> candidates = new LinkedHashSet\<\>();
       try {
          String packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX +
                resolveBasePackage(basePackage) + '/' + this.resourcePattern;
@@ -3777,7 +3777,7 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
    /**
     * Resolve the specified base package into a pattern specification for
     * the package search path.
-    * <p>The default implementation resolves placeholders against system properties,
+    * \<p\>The default implementation resolves placeholders against system properties,
     * and converts a "."-based package path to a "/"-based resource path.
     * @param basePackage the base package as specified by the user
     * @return the pattern specification to be used for package searching
@@ -3826,9 +3826,9 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 
    /**
     * Determine whether the given bean definition qualifies as candidate.
-    * <p>The default implementation checks whether the class is not an interface
+    * \<p\>The default implementation checks whether the class is not an interface
     * and not dependent on an enclosing class.
-    * <p>Can be overridden in subclasses.
+    * \<p\>Can be overridden in subclasses.
     * @param beanDefinition the bean definition to check
     * @return whether the bean definition qualifies as a candidate component
     */
@@ -3888,7 +3888,7 @@ protected void loadBeanDefinitions(DefaultListableBeanFactory beanFactory) {
          logger.info("Registering annotated classes: [" +
                StringUtils.collectionToCommaDelimitedString(this.annotatedClasses) + "]");
       }
-      reader.register(this.annotatedClasses.toArray(new Class<?>[this.annotatedClasses.size()]));
+      reader.register(this.annotatedClasses.toArray(new Class\<?\>[this.annotatedClasses.size()]));
    }
 
    if (!this.basePackages.isEmpty()) {
@@ -3906,7 +3906,7 @@ protected void loadBeanDefinitions(DefaultListableBeanFactory beanFactory) {
       for (String configLocation : configLocations) {
          try {
             //使用当前容器的类加载器加载定位路径的字节码类文件
-            Class<?> clazz = ClassUtils.forName(configLocation, getClassLoader());
+            Class\<?\> clazz = ClassUtils.forName(configLocation, getClassLoader());
             if (logger.isInfoEnabled()) {
                logger.info("Successfully resolved class for [" + configLocation + "]");
             }
@@ -3948,3 +3948,5 @@ protected void loadBeanDefinitions(DefaultListableBeanFactory beanFactory) {
 以下是容器初始化全过程的时序图:
 
 ![一步一步手绘Spring IOC运行时序图](https://tva1.sinaimg.cn/large/007S8ZIlly1gg087c713vj31lv0u0mzd.jpg)
+
+![基于XML的IOC容器初始化](https://tva1.sinaimg.cn/large/007S8ZIlly1gg100kca1lj31di0u07wi.jpg)
