@@ -3950,3 +3950,4 @@ protected void loadBeanDefinitions(DefaultListableBeanFactory beanFactory) {
 ![一步一步手绘Spring IOC运行时序图](https://tva1.sinaimg.cn/large/007S8ZIlly1gg087c713vj31lv0u0mzd.jpg)
 
 ![基于XML的IOC容器初始化](https://tva1.sinaimg.cn/large/007S8ZIlly1gg100kca1lj31di0u07wi.jpg)
+
