@@ -1,5 +1,5 @@
 ---
-layout: mybatis源码解读
+4)执行 PreparedStatement 的 execute()方法layout: mybatis源码解读
 title: mybatis源码解读
 date: 2020-06-23 23:17:58
 tags: mybatis源码解读
@@ -362,4 +362,165 @@ Blog blog = mapper.selectBlog(1);
 
 我们看一下 invoke()方法:
 
-1、MapperProxy.invoke()
+### 1、MapperProxy.invoke()
+
+1)首先判断是否需要去执行 SQL，还是直接执行方法。
+ Object 本身的方法和 Java 8 中接口的默认方法不需要去执行 SQL。 思考:isDefaultMethod 判断的是什么?写一个什么方法，它会走到这里? 这个是 Java 8 接口中默认方法的示例:
+
+```java
+public interface IService { 
+  default String getName(){
+    return "GP"; 
+  }
+}
+```
+
+2)获取缓存
+ 这里加入缓存是为了提升 MapperMethod 的获取速度:
+
+```java
+// 获取缓存，保存了方法签名和接口方法的关系
+final MapperMethod mapperMethod = cachedMapperMethod(method);
+```
+
+Map 的 computeIfAbsent()方法:只有 key 不存在或者 value 为 null 的时候才调用 mappingFunction()。
+
+### 2、MapperMethod.execute()
+
+接下来又调用了 mapperMethod 的 execute 方法:
+
+```java
+mapperMethod.execute(sqlSession, args);
+```
+
+![image-20200624102947618](https://tva1.sinaimg.cn/large/007S8ZIlly1gg367vzctdj30jk0cyn5z.jpg)
+
+apperMethod 里面主要有两个属性，一个是 SqlCommand，一个是 MethodSignature，这两个都是 MapperMethod 的内部类。
+
+另外定义了多个 execute()方法。
+
+在这一步，根据不同的 type 和返回类型:
+调用 convertArgsToSqlCommandParam()将参数转换为 SQL 的参数。
+调用 sqlSession 的 insert()、update()、delete()、selectOne ()方法，我们以查询
+
+为例，会走到 selectOne()方法。
+
+### 3、DefaultSqlSession.selectOne()
+
+selectOne()最终也是调用了 selectList()。
+
+在 SelectList()中，我们先根据 command name(Statement ID)从 Configuration 中拿到 MappedStatement，这个 ms 上面有我们在 xml 中配置的所有属性，包括 id、 statementType、sqlSource、useCache、入参、出参等等。
+
+![image-20200624103110454](https://tva1.sinaimg.cn/large/007S8ZIlly1gg369bsc1fj30hk0foqbg.jpg)
+
+然后执行了 Executor 的 query()方法。
+前面我们说到了 Executor 有三种基本类型，同学们还记得是哪几种么? SIMPLE/REUSE/BATCH，还有一种包装类型，CachingExecutor。 那么在这里到底会选择哪一种执行器呢?
+我们要回过头去看看 DefaultSqlSession 在初始化的时候是怎么赋值的，这个就是我们的会话创建过程。
+
+如果启用了二级缓存，就会先调用 CachingExecutor 的 query()方法，里面有缓存相关的操作，然后才是再调用基本类型的执行器，比如默认的 SimpleExecutor。
+
+在没有开启二级缓存的情况下，先会走到 BaseExecutor 的 query()方法(否则会先 走到 CachingExecutor)。
+
+![image-20200624103208406](https://tva1.sinaimg.cn/large/007S8ZIlly1gg36abstc8j30rq08878a.jpg)
+
+### 4、BaseExecutor.query()
+
+#### 1)创建 CacheKey
+
+从 Configuration 中获取 MappedStatement， 然后从 BoundSql 中获取 SQL 信 息，创建 CacheKey。这个 CacheKey 就是缓存的 Key。
+
+然后再调用另一个 query()方法。
+
+#### 2)清空本地缓存
+
+queryStack 用于记录查询栈，防止递归查询重复处理缓存。flushCache=true 的时候，会先清理本地缓存(一级缓存):clearLocalCache();
+
+如果没有缓存，会从数据库查询:queryFromDatabase() 如果 LocalCacheScope == STATEMENT，会清理本地缓存。
+
+#### 3)从数据库查询
+
+a)缓存 先在缓存用占位符占位。执行查询后，移除占位符，放入数据。
+
+b)查询执行 Executor 的 doQuery();默认是 SimpleExecutor。
+
+### 5、SimpleExecutor.doQuery()
+
+#### 1)创建 StatementHandler
+
+在 configuration.newStatementHandler()中，new 一个 StatementHandler，先 得到 RoutingStatementHandler。
+
+RoutingStatementHandler 里面没有任何的实现，是用来创建基本的 StatementHandler 的。这里会根据 MappedStatement 里面的 statementType 决定 StatementHandler 的 类 型 。 默 认 是 PREPARED ( STATEMENT 、 PREPARED 、 CALLABLE)。
+
+```java
+switch (ms.getStatementType()) { 
+  case STATEMENT:
+    delegate = new SimpleStatementHandler(executor, ms, parameter, rowBounds, resultHandler, boundSql);
+    break;
+  case PREPARED:
+    delegate = new PreparedStatementHandler(executor, ms, parameter, rowBounds, resultHandler, boundSql);
+    break;
+  case CALLABLE:
+    delegate = new CallableStatementHandler(executor, ms, parameter, rowBounds, resultHandler, boundSql);
+    break;
+  default:
+    throw new ExecutorException("Unknown statement type: " + ms.getStatementType()); 
+}
+```
+
+StatementHandler 里面包含了处理参数的 ParameterHandler 和处理结果集的 ResultSetHandler。
+
+这两个对象都是在上面 new 的时候创建的。
+
+```java
+this.parameterHandler = configuration.newParameterHandler(mappedStatement, parameterObject, boundSql);
+this.resultSetHandler = configuration.newResultSetHandler(executor, mappedStatement, rowBounds,parameterHandler, resultHandler, boundSql);
+```
+
+这三个对象都是可以被插件拦截的四大对象之一，所以在创建之后都要用拦截器进 行包装的方法。
+
+```java
+statementHandler = (StatementHandler) interceptorChain.pluginAll(statementHandler);
+```
+
+```java
+parameterHandler = (ParameterHandler) interceptorChain.pluginAll(parameterHandler);
+```
+
+```java
+resultSetHandler = (ResultSetHandler) interceptorChain.pluginAll(resultSetHandler);
+```
+
+PS:四大对象还有一个是谁?在什么时候创建的?(Executor)
+
+#### 2)创建 Statement
+
+用 new 出来的 StatementHandler 创建 Statement 对象——prepareStatement() 方法对语句进行预编译，处理参数。
+
+handler.parameterize(stmt) ;
+
+#### 3)执行的 StatementHandler 的 query()方法
+
+RoutingStatementHandler 的 query()方法。
+delegate 委派，最终执行 PreparedStatementHandler 的 query()方法。
+
+![image-20200624103651041](https://tva1.sinaimg.cn/large/007S8ZIlly1gg36f8f6e5j30ei02y75v.jpg)
+
+#### 4)执行 PreparedStatement 的 execute()方法
+
+后面就是 JDBC 包中的 PreparedStatement 的执行了。
+
+#### 5)ResultSetHandler 处理结果集
+
+```java
+return resultSetHandler.handleResultSets(ps);
+```
+
+问题:怎么把 ResultSet 转换成 List<Object>?
+
+ResultSetHandler 只有一个实现类:DefaultResultSetHandler。也就是执行 DefaultResultSetHandler 的 handleResultSets ()方法。
+
+首先我们会先拿到第一个结果集，如果没有配置一个查询返回多个结果集的情况， 一般只有一个结果集。如果下面的这个 while 循环我们也不用，就是执行一次。
+
+然后会调用 handleResultSet()方法。
+
+【作业】总结一下，MyBatis 里面用到了哪些设计模式?
